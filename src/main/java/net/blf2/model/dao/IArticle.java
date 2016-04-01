@@ -15,4 +15,5 @@ public interface IArticle {
     public ArticleInfo queryArticleInfoByArticleId(Integer articleId);
     public List<ArticleInfo> queryArticleInfoByArticleTitle(String articleTitle);
     public List<ArticleInfo> queryArticleInfoAll();
+    public List<ArticleInfo> queryArticleInfoByWriterId(Integer writerId);
 }
