@@ -179,4 +179,9 @@ public class PrimaryUserImpl implements IPrimaryUser{
         }
         return listTag;
     }
+
+    @Override
+    public List<TagInfo> lookTagInfoAll() {
+        return iTag.queryTagInfoAll();
+    }
 }
