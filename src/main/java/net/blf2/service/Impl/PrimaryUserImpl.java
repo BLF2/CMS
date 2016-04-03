@@ -2,17 +2,21 @@ package net.blf2.service.Impl;
 
 import net.blf2.model.dao.IArticle;
 import net.blf2.model.dao.IArticleTag;
+import net.blf2.model.dao.ITag;
 import net.blf2.model.dao.IUser;
 import net.blf2.model.entry.ArticleInfo;
 import net.blf2.model.entry.ArticleTag;
+import net.blf2.model.entry.TagInfo;
 import net.blf2.model.entry.UserInfo;
 import net.blf2.model.entry.enumfile.ArticleStatus;
 import net.blf2.model.entry.enumfile.UserRule;
 import net.blf2.service.IPrimaryUser;
 import net.blf2.util.CheckChars;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -21,11 +25,57 @@ import java.util.List;
  */
 @Service("PrimaryUser")
 public class PrimaryUserImpl implements IPrimaryUser{
+
     private IUser iUser;
+
     private CheckChars checkChars;
+
     private IArticle iArticle;
+
     private IArticleTag iArticleTag;
-    @Override
+
+    private ITag iTag;
+
+    public IUser getiUser() {
+        return iUser;
+    }
+    @Autowired
+    public void setiUser(IUser iUser) {
+        this.iUser = iUser;
+    }
+
+    public CheckChars getCheckChars() {
+        return checkChars;
+    }
+    @Autowired
+    public void setCheckChars(CheckChars checkChars) {
+        this.checkChars = checkChars;
+    }
+
+    public IArticle getiArticle() {
+        return iArticle;
+    }
+    @Autowired
+    public void setiArticle(IArticle iArticle) {
+        this.iArticle = iArticle;
+    }
+
+    public IArticleTag getiArticleTag() {
+        return iArticleTag;
+    }
+    @Autowired
+    public void setiArticleTag(IArticleTag iArticleTag) {
+        this.iArticleTag = iArticleTag;
+    }
+
+    public ITag getiTag() {
+        return iTag;
+    }
+    @Autowired
+    public void setiTag(ITag iTag) {
+        this.iTag = iTag;
+    }
+
     public UserInfo checkLogin(String userEmail, String userPswd) {//验证登录信息
         if(checkChars.checkUserEmail(userEmail)){
             UserInfo userInfo = iUser.queryuserInfoByUserEmail(userEmail);
@@ -110,5 +160,23 @@ public class PrimaryUserImpl implements IPrimaryUser{
         if(iArticleTag.updateArticleTag(articleTag))
             return articleTag;
         return null;
+    }
+
+    @Override
+    public ArticleInfo lookArticleInfoByArticleId(Integer articleId) {
+
+        return iArticle.queryArticleInfoByArticleId(articleId);
+    }
+
+    @Override
+    public List<TagInfo> lookTagInfoByArticleId(Integer articleId) {
+        List<ArticleTag>listAC = iArticleTag.queryArticleTagByArticleId(articleId);
+        List<TagInfo>listTag = new LinkedList<TagInfo>();
+        Iterator<ArticleTag>iterator = listAC.iterator();
+        while(iterator.hasNext()){
+            TagInfo tagInfo = iTag.queryTagInfoByTagId(iterator.next().getTagId());
+            listTag.add(tagInfo);
+        }
+        return listTag;
     }
 }

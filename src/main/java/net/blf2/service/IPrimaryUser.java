@@ -2,6 +2,7 @@ package net.blf2.service;
 
 import net.blf2.model.entry.ArticleInfo;
 import net.blf2.model.entry.ArticleTag;
+import net.blf2.model.entry.TagInfo;
 import net.blf2.model.entry.UserInfo;
 import net.blf2.model.entry.enumfile.ArticleStatus;
 import net.blf2.model.entry.enumfile.UserRule;
@@ -22,4 +23,6 @@ public interface IPrimaryUser {
     public List<ArticleInfo> lookWriterArticleInfo(Integer writerId);//查看自己的文章
     public ArticleTag addTagToArticle(Integer articleId,Integer tagid);//给文章添加分类
     public ArticleTag updateTagToArticle(Integer articleId,Integer tagid);//给文章变更分类
+    public ArticleInfo lookArticleInfoByArticleId(Integer articleId);//根据文章id查看文章
+    public List<TagInfo> lookTagInfoByArticleId(Integer articleId);//根据文章id获取分类
 }
