@@ -70,7 +70,7 @@
            <aop:pointcut id="transactionPointcut" expression="execution(* net.blf2.service..*Impl.*(..))" />
            <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
        </aop:config>
-       <context:component-scan base-package="net.blf2.model,net.blf2.service" />
+       <context:component-scan base-package="net.blf2.model.dao,net.blf2.model.entry,net.blf2.service,net.blf2.util" />
 
        <aop:aspectj-autoproxy />
 

@@ -1,6 +1,8 @@
 package net.blf2.util;
 
 import net.blf2.model.entry.UserInfo;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.util.HashMap;
@@ -13,6 +15,7 @@ import java.util.regex.Pattern;
  * Created by blf2 on 16-4-3.
  * 验证输入字符
  */
+@Component("CheckChars")
 public class CheckChars {
     public Boolean checkUserEmail(String userEmail){//判断是否为合法邮箱
         if(userEmail.length() > 100)
