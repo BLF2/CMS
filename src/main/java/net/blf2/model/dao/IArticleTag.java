@@ -14,4 +14,6 @@ public interface IArticleTag {
     public Boolean updateArticleTag(ArticleTag articleTag);
     public ArticleTag queryArticelTagByArticleTagId(Integer articleTagId);
     public List<ArticleTag> queryArticleTagAll();
+    public List<ArticleTag> queryArticelTagByTagId(Integer tagId);
+    public List<ArticleTag> queryArticleTagByArticleId(Integer articleId);
 }

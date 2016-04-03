@@ -70,4 +70,18 @@ public class ArticleTagDaoImpl implements IArticleTag{
         Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
         return query.list();
     }
+
+    @Override
+    public List<ArticleTag> queryArticelTagByTagId(Integer tagId) {
+        String hql = "from ArticleTag ac where ac.tagId="+tagId;
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        return query.list();
+    }
+
+    @Override
+    public List<ArticleTag> queryArticleTagByArticleId(Integer articleId) {
+        String hql = "from ArticleTag ac where ac.articleId="+articleId;
+        Query query = this.sessionFactory.getCurrentSession().createQuery(hql);
+        return query.list();
+    }
 }

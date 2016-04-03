@@ -12,7 +12,7 @@ import java.util.List;
  * Created by blf2 on 16-4-2.
  * 普通用户权限
  */
-public interface PrimaryUser {
+public interface IPrimaryUser {
     public UserInfo checkLogin(String userName,String userPswd);//登录验证
     public UserInfo registerLogin(String userEmail,String userPswd,String userName,UserRule userRule);//注册
     public UserInfo updateUserInfo(String userEmail,String userPswd,String userName,UserRule userRule);//修改个人信息
