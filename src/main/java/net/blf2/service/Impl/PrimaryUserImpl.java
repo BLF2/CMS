@@ -1,7 +1,114 @@
 package net.blf2.service.Impl;
 
+import net.blf2.model.dao.IArticle;
+import net.blf2.model.dao.IArticleTag;
+import net.blf2.model.dao.IUser;
+import net.blf2.model.entry.ArticleInfo;
+import net.blf2.model.entry.ArticleTag;
+import net.blf2.model.entry.UserInfo;
+import net.blf2.model.entry.enumfile.ArticleStatus;
+import net.blf2.model.entry.enumfile.UserRule;
+import net.blf2.service.IPrimaryUser;
+import net.blf2.util.CheckChars;
+import org.springframework.stereotype.Service;
+
+import java.util.Iterator;
+import java.util.List;
+
 /**
  * Created by blf2 on 16-4-3.
+ * 普通用户操作  实现IPrimaryUser接口
  */
-public class PrimaryUserImpl {
+@Service("PrimaryUser")
+public class PrimaryUserImpl implements IPrimaryUser{
+    private IUser iUser;
+    private CheckChars checkChars;
+    private IArticle iArticle;
+    private IArticleTag iArticleTag;
+    @Override
+    public UserInfo checkLogin(String userEmail, String userPswd) {//验证登录信息
+        if(checkChars.checkUserEmail(userEmail)){
+            UserInfo userInfo = iUser.queryuserInfoByUserEmail(userEmail);
+            if(userInfo != null){
+                if(userInfo.getUserPswd().equals(userPswd)){
+                    return userInfo;
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public UserInfo registerLogin(String userEmail, String userPswd, String userName, UserRule userRule) {//注册用户
+        UserInfo userInfo = new UserInfo(userEmail,userPswd,userName,userRule);
+        if(checkChars.checkRegisterInfo(userInfo)){
+            userInfo = iUser.insertUserInfo(userInfo);
+        }
+        return userInfo;
+    }
+
+    @Override
+    public UserInfo updateUserInfo(UserInfo currentLoginUser,String userEmail, String userPswd, String userName, UserRule userRule) {//更新用户信息
+        UserInfo userInfo = new UserInfo(currentLoginUser.getUserId(),userEmail,userPswd,userName,userRule);
+        if(checkChars.checkRegisterInfo(userInfo) && iUser.updateUserInfo(userInfo)){
+            return userInfo;
+        }
+        return null;
+    }
+
+    @Override
+    public ArticleInfo addArticleInfo(String articleTitle, Integer writerId, String articleText, String publishDateTime, ArticleStatus articleStatus) {//添加文章
+        articleTitle = checkChars.fiterScriptCode(articleTitle);
+        articleText = checkChars.fiterScriptCode(articleText);
+        ArticleInfo articleInfo = new ArticleInfo(articleTitle,writerId,articleText,publishDateTime,articleStatus);
+        articleInfo = iArticle.insertArticleInfo(articleInfo);
+        return articleInfo;
+    }
+
+    @Override
+    public ArticleInfo updateArticleInfo(ArticleInfo currentAticleInfo,String articleTitle, Integer writerId, String articleText, String publishDateTime, ArticleStatus articleStatus) {//更新文章
+        articleTitle = checkChars.fiterScriptCode(articleTitle);
+        articleText = checkChars.fiterScriptCode(articleText);
+        ArticleInfo articleInfo = new ArticleInfo(currentAticleInfo.getArticleId(),articleTitle,writerId,articleText,publishDateTime,articleStatus);
+        if(iArticle.updateArticleInfo(articleInfo))
+            return articleInfo;
+        return null;
+    }
+
+    @Override
+    public Boolean deleteArticelInfoByArticleId(Integer articleId) {//通过文章Id删除文章
+        ArticleInfo articleInfo = iArticle.queryArticleInfoByArticleId(articleId);
+        if(articleInfo != null){
+            List<ArticleTag>list = iArticleTag.queryArticleTagByArticleId(articleId);
+            Iterator<ArticleTag>iterator = list.iterator();
+            while(iterator.hasNext()){
+                iArticleTag.deleteArticleTag(iterator.next());
+            }
+            if(iArticle.deleteArticleInfo(articleInfo)){
+                return Boolean.TRUE;
+            }
+        }
+        return Boolean.FALSE;
+    }
+
+    @Override
+    public List<ArticleInfo> lookWriterArticleInfo(Integer writerId) {//查看某个作者的所有文章,如参数为自己的Id，就是查看自己的文章
+        List<ArticleInfo>list = iArticle.queryArticleInfoByWriterId(writerId);
+        return list;
+    }
+
+    @Override
+    public ArticleTag addTagToArticle(Integer articleId, Integer tagid) {//给文章添加分类
+        ArticleTag articleTag = new ArticleTag(articleId,tagid);
+        articleTag = iArticleTag.insertArtitcleTag(articleTag);
+        return articleTag;
+    }
+
+    @Override
+    public ArticleTag updateTagToArticle(Integer articleId, Integer tagid) {//更新文章分类
+        ArticleTag articleTag = new ArticleTag(articleId,tagid);
+        if(iArticleTag.updateArticleTag(articleTag))
+            return articleTag;
+        return null;
+    }
 }
