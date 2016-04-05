@@ -11,7 +11,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
   <meta name="author" content="">
-  <link rel="icon" href="">
+  <link rel="icon" href="http://7xrn7f.com1.z0.glb.clouddn.com/16-4-5/17279148.jpg">
 
   <title>My Blog</title>
 
@@ -39,7 +39,7 @@
       <ul class="nav navbar-nav">
         <li class="active"><a href="#">博客</a></li>
         <li><a href="#about">关于</a></li>
-        <li><a href="#contact">会员入口</a></li>
+        <li><a href="/User/toLogin.action">会员入口</a></li>
       </ul>
     </div><!-- /.nav-collapse -->
   </div><!-- /.container -->
@@ -111,16 +111,9 @@
 
 </div><!--/.container-->
 
-
-<!-- Bootstrap core JavaScript
-================================================== -->
-<!-- Placed at the end of the document so the pages load faster -->
 <script src="js/jquery.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
-
-<!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 <script src="js/ie10-viewport-bug-workaround.js"></script>
-
 <script src="js/offcanvas.js"></script>
 </body>
 </html>
