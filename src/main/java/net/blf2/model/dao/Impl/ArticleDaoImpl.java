@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * Created by blf2 on 16-3-31.
  * 文章数据表的操作接口实现类
  */
+@Repository("ArticleDaoImpl")
 public class ArticleDaoImpl implements IArticle{
 
     private SessionFactory sessionFactory;

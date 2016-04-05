@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * Created by blf2 on 16-4-2.
  * 分类信息数据库操作，实现ITag接口
  */
+@Repository("TagDaoImpl")
 public class TagDaoImpl implements ITag {
 
     private SessionFactory sessionFactory;

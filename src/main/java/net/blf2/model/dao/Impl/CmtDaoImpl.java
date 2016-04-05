@@ -6,6 +6,7 @@ import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
  * Created by blf2 on 16-4-2.
  * 评论信息类的增删改查，实现ICmt接口
  */
+@Repository("CmtDaoImpl")
 public class CmtDaoImpl implements ICmt {
     private SessionFactory sessionFactory;
 
