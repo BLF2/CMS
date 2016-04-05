@@ -91,10 +91,14 @@ public class PrimaryUserImpl implements IPrimaryUser{
     @Override
     public UserInfo registerLogin(String userEmail, String userPswd, String userName, UserRule userRule) {//注册用户
         UserInfo userInfo = new UserInfo(userEmail,userPswd,userName,userRule);
+        UserInfo reUserInfo = null;
         if(checkChars.checkRegisterInfo(userInfo)){
-            userInfo = iUser.insertUserInfo(userInfo);
+
+            reUserInfo = iUser.insertUserInfo(userInfo);
+            if(reUserInfo != null)
+            System.out.println("增加通过！");
         }
-        return userInfo;
+        return reUserInfo;
     }
 
     @Override

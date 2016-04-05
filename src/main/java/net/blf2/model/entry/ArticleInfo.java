@@ -2,12 +2,16 @@ package net.blf2.model.entry;
 
 import net.blf2.model.entry.enumfile.ArticleStatus;
 
+import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  * Created by blf2 on 16-3-31.\
  * 文章信息类
  */
+@Entity
+@Table(name="ArticleInfo")
 public class ArticleInfo {
     private Integer articleId;//文章id
     private String articleTitle;//文章标题
