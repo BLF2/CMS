@@ -36,9 +36,11 @@
                      </list>
               </property>
        </bean>
-       <bean name="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+
+       <bean name="transactionManager" class="org.springframework.orm.hibernate5.HibernateTransactionManager">
            <property name="sessionFactory" ref="sessionFactory"></property>
        </bean>
+<!--
        <tx:advice id="transactionAdvice" transaction-manager="transactionManager">
            <tx:attributes>
                <tx:method name="add*" propagation="REQUIRED" />
@@ -70,8 +72,10 @@
            <aop:pointcut id="transactionPointcut" expression="execution(* net.blf2.service..*Impl.*(..))" />
            <aop:advisor pointcut-ref="transactionPointcut" advice-ref="transactionAdvice" />
        </aop:config>
-       <context:component-scan base-package="net.blf2.model.dao,net.blf2.model.entry,net.blf2.service,net.blf2.util" />
+
 
        <aop:aspectj-autoproxy />
+       -->
+    <context:component-scan base-package="net.blf2.model.dao,net.blf2.model.entry,net.blf2.service,net.blf2.util" />
 
 </beans>
