@@ -77,4 +77,10 @@ public class CheckChars {
         }
         return scriptCode;
     }
+    public String checkTagNameLength(String tagName){
+        if(tagName.length() > 50){
+            tagName = tagName.substring(0,50);
+        }
+        return tagName;
+    }
 }
