@@ -14,7 +14,7 @@ public interface IAdmin extends IPrimaryUser{
     public List<UserInfo> lookUserInfoAll();
     public Boolean deleteUserInfoByUserId(Integer userId);
     public List<ArticleInfo> lookArticleInfoAll();
-    public TagInfo addTagInfo(TagInfo tagInfo);
-    public Boolean updateTagInfo(TagInfo tagInfo);
+    public TagInfo addTagInfo(String tagName);
+    public Boolean updateTagInfo(TagInfo currentTagInfo,String tagName);
     public Boolean deleteTagInfoByTagId(Integer tagId);
 }
