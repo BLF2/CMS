@@ -49,7 +49,7 @@ public class UserController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            System.out.println("myaccreditCode="+myaccreditCode);
+ //           System.out.println("myaccreditCode="+myaccreditCode);
             if(myaccreditCode != null){
                 if(accreditCode.equals(myaccreditCode)){
                     UserInfo userInfo = iPrimaryUser.registerLogin(userEmail,userPswd,userName, UserRule.user);

@@ -95,8 +95,8 @@ public class PrimaryUserImpl implements IPrimaryUser{
         if(checkChars.checkRegisterInfo(userInfo)){
 
             reUserInfo = iUser.insertUserInfo(userInfo);
-            if(reUserInfo != null)
-            System.out.println("增加通过！");
+//            if(reUserInfo != null)
+//            System.out.println("增加通过！");
         }
         return reUserInfo;
     }

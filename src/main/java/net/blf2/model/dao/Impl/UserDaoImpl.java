@@ -31,7 +31,8 @@ public class UserDaoImpl implements IUser {
         try {
             this.sessionFactory.getCurrentSession().save(userInfo);
         }catch (HibernateException e){
-            System.out.println("Hibernate error");
+           // System.out.println("Hibernate error");
+         //   e.printStackTrace();
             return null;
         }
         return userInfo;
