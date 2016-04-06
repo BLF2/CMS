@@ -2,9 +2,7 @@ package net.blf2.model.entry;
 
 import net.blf2.model.entry.enumfile.UserRule;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by blf2 on 16-3-31.
@@ -37,6 +35,7 @@ public class UserInfo {
         this.userRule = userRule;
     }
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getUserId() {
         return userId;
     }

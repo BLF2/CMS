@@ -1,8 +1,6 @@
 package net.blf2.model.entry;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by blf2 on 16-3-31.
@@ -44,6 +42,7 @@ public class CmtInfo {
         this.cmtorMainPage = cmtorMainPage;
     }
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getCmtId() {
         return cmtId;
     }

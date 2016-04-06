@@ -2,9 +2,7 @@ package net.blf2.model.entry;
 
 import net.blf2.model.entry.enumfile.ArticleStatus;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 /**
  * Created by blf2 on 16-3-31.\
@@ -41,6 +39,7 @@ public class ArticleInfo {
         this.articleStatus = articleStatus;
     }
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getArticleId() {
         return articleId;
     }
