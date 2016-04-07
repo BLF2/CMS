@@ -32,37 +32,18 @@ public class UserController {
         return "register";
     }
     @RequestMapping(value = "register.action",method = {RequestMethod.POST})
-    public String register(String userEmail,String userPswd,String userName,String accreditCode,HttpSession httpSession){
-        FileInputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream("/home/blf2/workspace/CMS/accreditCode.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+    public String register(String userEmail,String userPswd,String userName,int rule,HttpSession httpSession){
+        UserInfo userInfo = (UserInfo)httpSession.getAttribute("loginInfo");
+        if(userInfo != null && userInfo.getUserRule().isAdmian()){
+            UserRule userRule = null;
+            if(rule == 1)
+                userRule = UserRule.user;
+            else if(rule == 0)
+                userRule = UserRule.inactive;
+            UserInfo rUserInfo = new UserInfo(userEmail,userPswd,userName,userRule);
+            return "adminmain";
         }
-        BufferedReader bufferedReader = null;
-        if(fileInputStream != null){
-            bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-            String myaccreditCode = null;
-            try {
-                myaccreditCode = bufferedReader.readLine();
-
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
- //           System.out.println("myaccreditCode="+myaccreditCode);
-            if(myaccreditCode != null){
-                if(accreditCode.equals(myaccreditCode)){
-                    UserInfo userInfo = iPrimaryUser.registerLogin(userEmail,userPswd,userName, UserRule.user);
-
-                    if(userInfo != null){
-                        System.out.println("registerLogin 成功！");
-                        httpSession.setAttribute("loginInfo",userInfo);
-                        return "personalEdit";
-                    }
-                }
-            }
-        }
-       return "error";
+        return "error";
     }
     @RequestMapping(value = "login.action",method = {RequestMethod.POST})
     public String checkLogin(String userEmail,String userPswd,HttpSession httpSession){
@@ -71,8 +52,13 @@ public class UserController {
         }
         UserInfo userInfo = iPrimaryUser.checkLogin(userEmail,userPswd);
         if(userInfo != null){
+            if(userInfo.getUserRule().isInactive())
+                return "error";
             httpSession.setAttribute("loginInfo",userInfo);
-            return "personalEdit";
+            if(userInfo.getUserRule().isAdmian())
+                return "adminmain";
+            else if(userInfo.getUserRule().isUser())
+                return "primarymain";
         }
         return "login";
     }
