@@ -36,6 +36,7 @@ public class UserInfo {
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="userId")
     public Integer getUserId() {
         return userId;
     }
@@ -43,7 +44,7 @@ public class UserInfo {
     public void setUserId(Integer userId) {
         this.userId = userId;
     }
-
+    @Column(name = "userEmail")
     public String getUserEmail() {
         return userEmail;
     }
@@ -51,7 +52,7 @@ public class UserInfo {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
-
+    @Column(name = "userPswd")
     public String getUserPswd() {
         return userPswd;
     }
@@ -59,7 +60,7 @@ public class UserInfo {
     public void setUserPswd(String userPswd) {
         this.userPswd = userPswd;
     }
-
+    @Column(name = "userName")
     public String getUserName() {
         return userName;
     }
@@ -67,7 +68,7 @@ public class UserInfo {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
+    @Column(name = "userRule")
     public UserRule getUserRule() {
         return userRule;
     }

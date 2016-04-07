@@ -5,7 +5,7 @@ import net.blf2.model.entry.enumfile.ArticleStatus;
 import javax.persistence.*;
 
 /**
- * Created by blf2 on 16-3-31.\
+ * Created by blf2 on 16-3-31.
  * 文章信息类
  */
 @Entity
@@ -40,6 +40,7 @@ public class ArticleInfo {
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "articleId")
     public Integer getArticleId() {
         return articleId;
     }
@@ -47,7 +48,7 @@ public class ArticleInfo {
     public void setArticleId(Integer articleId) {
         this.articleId = articleId;
     }
-
+    @Column(name = "articleTitle")
     public String getArticleTitle() {
         return articleTitle;
     }
@@ -55,7 +56,7 @@ public class ArticleInfo {
     public void setArticleTitle(String articleTitle) {
         this.articleTitle = articleTitle;
     }
-
+    @Column(name = "writerId")
     public Integer getWriterId() {
         return writerId;
     }
@@ -63,7 +64,7 @@ public class ArticleInfo {
     public void setWriterId(Integer writerId) {
         this.writerId = writerId;
     }
-
+    @Column(name = "articleText")
     public String getArticleText() {
         return articleText;
     }
@@ -71,7 +72,7 @@ public class ArticleInfo {
     public void setArticleText(String articleText) {
         this.articleText = articleText;
     }
-
+    @Column(name = "publishDateTime")
     public String getPublishDateTime() {
         return publishDateTime;
     }
@@ -79,7 +80,7 @@ public class ArticleInfo {
     public void setPublishDateTime(String publishDateTime) {
         this.publishDateTime = publishDateTime;
     }
-
+    @Column(name = "articleStatus")
     public ArticleStatus getArticleStatus() {
         return articleStatus;
     }

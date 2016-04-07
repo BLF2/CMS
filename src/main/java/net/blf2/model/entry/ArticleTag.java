@@ -28,6 +28,7 @@ public class ArticleTag {
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "acId")
     public Integer getAcId() {
         return acId;
     }
@@ -35,7 +36,7 @@ public class ArticleTag {
     public void setAcId(Integer acId) {
         this.acId = acId;
     }
-
+    @Column(name = "articleId")
     public Integer getArticleId() {
         return articleId;
     }
@@ -43,7 +44,7 @@ public class ArticleTag {
     public void setArticleId(Integer articleId) {
         this.articleId = articleId;
     }
-
+    @Column(name = "tagId")
     public Integer getTagId() {
         return tagId;
     }

@@ -25,6 +25,7 @@ public class TagInfo {
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="tagId")
     public Integer getTagId() {
         return tagId;
     }
@@ -32,7 +33,7 @@ public class TagInfo {
     public void setTagId(Integer tagId) {
         this.tagId = tagId;
     }
-
+    @Column(name="tagName")
     public String getTagName() {
         return tagName;
     }

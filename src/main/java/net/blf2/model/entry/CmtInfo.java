@@ -43,6 +43,7 @@ public class CmtInfo {
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "cmtId")
     public Integer getCmtId() {
         return cmtId;
     }
@@ -50,7 +51,7 @@ public class CmtInfo {
     public void setCmtId(Integer cmtId) {
         this.cmtId = cmtId;
     }
-
+    @Column(name = "cmtorName")
     public String getCmtorName() {
         return cmtorName;
     }
@@ -58,7 +59,7 @@ public class CmtInfo {
     public void setCmtorName(String cmtorName) {
         this.cmtorName = cmtorName;
     }
-
+    @Column(name = "articleId")
     public Integer getArticleId() {
         return articleId;
     }
@@ -66,7 +67,7 @@ public class CmtInfo {
     public void setArticleId(Integer articleId) {
         this.articleId = articleId;
     }
-
+    @Column(name = "replyId")
     public Integer getReplyId() {
         return replyId;
     }
@@ -74,7 +75,7 @@ public class CmtInfo {
     public void setReplyId(Integer replyId) {
         this.replyId = replyId;
     }
-
+    @Column(name = "replyDateTime")
     public String getReplyDateTime() {
         return replyDateTime;
     }
@@ -82,7 +83,7 @@ public class CmtInfo {
     public void setReplyDateTime(String replyDateTime) {
         this.replyDateTime = replyDateTime;
     }
-
+    @Column(name = "cmtText")
     public String getCmtText() {
         return cmtText;
     }
@@ -90,7 +91,7 @@ public class CmtInfo {
     public void setCmtText(String cmtText) {
         this.cmtText = cmtText;
     }
-
+    @Column(name = "cmtorEmail")
     public String getCmtorEmail() {
         return cmtorEmail;
     }
@@ -98,7 +99,7 @@ public class CmtInfo {
     public void setCmtorEmail(String cmtorEmail) {
         this.cmtorEmail = cmtorEmail;
     }
-
+    @Column(name = "cmtorMainPage")
     public String getCmtorMainPage() {
         return cmtorMainPage;
     }
