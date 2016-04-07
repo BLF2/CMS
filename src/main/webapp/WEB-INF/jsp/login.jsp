@@ -15,7 +15,7 @@
 <body>
 <div class="container">
 
-  <form class="form-signin" method="post">
+  <form class="form-signin" action="/User/login.action" method="post">
     <h4 class="form-signin-heading">请登录：</h4>
     <label for="userEmail">邮箱：</label>
     <input type="email" id="userEmail" name="userEmail" class="form-control" placeholder="Email address" required autofocus>
