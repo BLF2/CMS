@@ -1,5 +1,6 @@
 package net.blf2.controller.user;
 
+import net.blf2.model.entry.ArticleInfo;
 import net.blf2.model.entry.UserInfo;
 import net.blf2.model.entry.enumfile.UserRule;
 import net.blf2.service.IPrimaryUser;
@@ -8,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.portlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.*;
+import java.util.List;
 
 /**
  * Created by blf2 on 16-4-5.
@@ -57,8 +60,11 @@ public class UserController {
             httpSession.setAttribute("loginInfo",userInfo);
             if(userInfo.getUserRule().isAdmian())
                 return "adminmain";
-            else if(userInfo.getUserRule().isUser())
+            else if(userInfo.getUserRule().isUser()) {
+                List<ArticleInfo> alist = iPrimaryUser.lookWriterArticleInfo(userInfo.getUserId());
+                httpSession.setAttribute("ListOfArticleByWriterId",alist);
                 return "primarymain";
+            }
         }
         return "login";
     }
