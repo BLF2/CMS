@@ -1,3 +1,8 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="net.blf2.model.entry.ArticleInfo" %>
+<%@ page import="java.util.List" %>
+<%@ page import="org.springframework.web.portlet.ModelAndView" %>
+<%@ page import="java.util.Iterator" %>
 <%--
   Created by IntelliJ IDEA.
   User: blf2
@@ -41,7 +46,46 @@
     </ul>
   </div>
   <div class="col-md-9" name="rightdiv">
-    <p>1111</p>
+    <table class="table table-bordered">
+      <tr>
+        <td>
+          文章题目
+        </td>
+        <td>
+          发表时间
+        </td>
+        <td>
+          文章状态
+        </td>
+        <td>
+          操作1
+        </td>
+        <td>
+          操作2
+        </td>
+        <%
+          HttpSession httpSession = request.getSession();
+          List<ArticleInfo>alist = (List<ArticleInfo>) httpSession.getAttribute("ListOfArticleByWriterId");
+          Iterator<ArticleInfo>iterator = alist.iterator();
+          while(iterator.hasNext()){
+            ArticleInfo articleInfo = iterator.next();%>
+        <tr>
+          <a href="/Article/look.action?articleId=<%=articleInfo.getArticleId()%>"><td><%=articleInfo.getArticleTitle()%></td></a>
+          <td><%=articleInfo.getPublishDateTime()%></td>
+        <%if(articleInfo.getArticleStatus().isPublished()){%>
+      <td>已发表</td>
+      <%}else if(articleInfo.getArticleStatus().isDrafts()){%>
+      <td>草稿</td>
+      <%}else{%>
+      <td>回收站</td>
+      <%}%>
+      <a href="/Article/edit.action?articleId=<%=articleInfo.getArticleId()%>"><td><button type="button" class="btn btn-primary">编辑</button></td></a>
+        <a href="/Article/delete.action?articleId=<%=articleInfo.getArticleId()%>"><td><button type="button" class="btn btn-primary">删除</button></td></a>
+        </tr>
+          <%}
+        %>
+      </tr>
+    </table>
   </div>
 </div>
 </body>
