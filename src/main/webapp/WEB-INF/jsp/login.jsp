@@ -11,6 +11,12 @@
   <jsp:include page="top.html"/>
   <link href="../../css/signin.css" rel="stylesheet" />
     <title>Register</title>
+  <script type="text/javascript">
+    function dialog(){
+      alert("请联系blf20822@126.com申请注册");
+      return false;
+    }
+  </script>
 </head>
 <body>
 <div class="container">
@@ -24,7 +30,7 @@
     <div class="checkbox">
       <label>
         <input type="checkbox" name="remember-me" value="remember-me"> 记住我&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <a href="/User/toRegister.action">注册</a>
+        <a href="/User/toRegister.action" onclick="return dialog()">注册</a>
       </label>
     </div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">登录</button>
