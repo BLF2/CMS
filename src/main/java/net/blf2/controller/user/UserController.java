@@ -68,4 +68,14 @@ public class UserController {
         }
         return "login";
     }
+    @RequestMapping(value = "updatePersonalInfo.action",method = {RequestMethod.POST})
+    public String updatePersonalInfo(String userPswd,String userName,String Submit,HttpSession httpSession){
+        if("no".equals(Submit))
+            return "primarymain";
+        UserInfo currentUserInfo = (UserInfo)httpSession.getAttribute("loginInfo");
+        if((currentUserInfo = iPrimaryUser.updateUserInfo(currentUserInfo,currentUserInfo.getUserEmail(),userPswd,userName,UserRule.user)) == null)
+            return  "error";
+        httpSession.setAttribute("loginInfo",currentUserInfo);
+        return "primarymain";
+    }
 }
