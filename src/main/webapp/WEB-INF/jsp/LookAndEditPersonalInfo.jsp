@@ -33,10 +33,8 @@
       <td><%=userInfo.getUserEmail()%></td>
     </tr>
     <tr>
-      <td>
         <td>登录密码：</td>
         <td><input type="text" name="userPswd" value="<%=userInfo.getUserPswd()%>" required="required"/></td>
-      </td>
     </tr>
     <tr>
       <td>登录昵称：</td>

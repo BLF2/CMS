@@ -3,6 +3,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="org.springframework.web.portlet.ModelAndView" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="net.blf2.model.entry.UserInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: blf2
@@ -26,10 +27,10 @@
         <a href="#">可用操作：</a>
       </li>
       <li>
-        <a href="#" target="">查看个人信息</a>
+        <a href="/User/toLookPersonalInfo.action">查看个人信息</a>
       </li>
       <li>
-        <a href="#">修改个人信息</a>
+        <a href="/User/toLookPersonalInfo.action">修改个人信息</a>
       </li>
       <li>
         <a href="#">添加个人文章</a>
@@ -37,15 +38,9 @@
       <li>
         <a href="#">查看个人文章</a>
       </li>
-      <li>
-        <a href="#">修改个人文章</a>
-      </li>
-      <li>
-        <a href="#">删除个人文章</a>
-      </li>
     </ul>
   </div>
-  <div class="col-md-9" name="rightdiv">
+  <div class="col-md-9" name="rightdiv" id="ableToChange">
     <table class="table table-bordered">
       <tr>
         <td>
@@ -65,7 +60,11 @@
         </td>
         <%
           HttpSession httpSession = request.getSession();
+
           List<ArticleInfo>alist = (List<ArticleInfo>) httpSession.getAttribute("ListOfArticleByWriterId");
+          if(alist == null){%>
+          无记录！
+          <%}else{
           Iterator<ArticleInfo>iterator = alist.iterator();
           while(iterator.hasNext()){
             ArticleInfo articleInfo = iterator.next();%>
@@ -83,6 +82,7 @@
         <a href="/Article/delete.action?articleId=<%=articleInfo.getArticleId()%>"><td><button type="button" class="btn btn-primary">删除</button></td></a>
         </tr>
           <%}
+          }
         %>
       </tr>
     </table>

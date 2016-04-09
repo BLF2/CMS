@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.portlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
 import java.io.*;
@@ -31,7 +30,10 @@ public class UserController {
         return "login";
     }
     @RequestMapping("toRegister.action")
-    public String toRegister(){
+    public String toRegister(HttpSession httpSession){
+        UserInfo userInfo = (UserInfo)httpSession.getAttribute("loginInfo");
+        if(userInfo == null)
+            return "error";
         return "register";
     }
     @RequestMapping(value = "register.action",method = {RequestMethod.POST})
@@ -77,5 +79,12 @@ public class UserController {
             return  "error";
         httpSession.setAttribute("loginInfo",currentUserInfo);
         return "primarymain";
+    }
+    @RequestMapping(value = "toLookPersonalInfo.action")
+    public String toLookPersonalInfo(HttpSession httpSession) {
+        UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
+        if(userInfo == null)
+            return "error";
+        return "LookAndEditPersonalInfo";
     }
 }
