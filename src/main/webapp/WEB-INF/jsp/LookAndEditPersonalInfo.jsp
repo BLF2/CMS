@@ -1,4 +1,4 @@
-<%@ page import="net.blf2.model.entry.UserInfo" %>
+<%@ page import="net.blf2.model.entity.UserInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: blf2

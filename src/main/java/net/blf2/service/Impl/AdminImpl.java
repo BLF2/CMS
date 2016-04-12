@@ -4,10 +4,10 @@ import net.blf2.model.dao.IArticle;
 import net.blf2.model.dao.IArticleTag;
 import net.blf2.model.dao.ITag;
 import net.blf2.model.dao.IUser;
-import net.blf2.model.entry.ArticleInfo;
-import net.blf2.model.entry.ArticleTag;
-import net.blf2.model.entry.TagInfo;
-import net.blf2.model.entry.UserInfo;
+import net.blf2.model.entity.ArticleInfo;
+import net.blf2.model.entity.ArticleTag;
+import net.blf2.model.entity.TagInfo;
+import net.blf2.model.entity.UserInfo;
 import net.blf2.service.IAdmin;
 import net.blf2.util.CheckChars;
 

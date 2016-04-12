@@ -1,8 +1,8 @@
 package net.blf2.service;
 
-import net.blf2.model.entry.ArticleInfo;
-import net.blf2.model.entry.TagInfo;
-import net.blf2.model.entry.UserInfo;
+import net.blf2.model.entity.ArticleInfo;
+import net.blf2.model.entity.TagInfo;
+import net.blf2.model.entity.UserInfo;
 
 import java.util.List;
 

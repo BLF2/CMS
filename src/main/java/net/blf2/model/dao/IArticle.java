@@ -1,6 +1,6 @@
 package net.blf2.model.dao;
 
-import net.blf2.model.entry.ArticleInfo;
+import net.blf2.model.entity.ArticleInfo;
 
 import java.util.List;
 

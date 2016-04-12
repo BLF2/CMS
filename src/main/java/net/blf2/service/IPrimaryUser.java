@@ -1,11 +1,11 @@
 package net.blf2.service;
 
-import net.blf2.model.entry.ArticleInfo;
-import net.blf2.model.entry.ArticleTag;
-import net.blf2.model.entry.TagInfo;
-import net.blf2.model.entry.UserInfo;
-import net.blf2.model.entry.enumfile.ArticleStatus;
-import net.blf2.model.entry.enumfile.UserRule;
+import net.blf2.model.entity.ArticleInfo;
+import net.blf2.model.entity.ArticleTag;
+import net.blf2.model.entity.TagInfo;
+import net.blf2.model.entity.UserInfo;
+import net.blf2.model.entity.enumfile.ArticleStatus;
+import net.blf2.model.entity.enumfile.UserRule;
 
 import java.util.List;
 

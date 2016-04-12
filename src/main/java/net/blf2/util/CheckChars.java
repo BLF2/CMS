@@ -1,7 +1,6 @@
 package net.blf2.util;
 
-import net.blf2.model.entry.UserInfo;
-import org.springframework.context.annotation.Bean;
+import net.blf2.model.entity.UserInfo;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -43,38 +42,6 @@ public class CheckChars {
         return Boolean.FALSE;
     }
     public String fiterScriptCode(String scriptCode){//过滤脚本代码，把“<”替换成 &lt;等,防止脚本在页面上运行
-        FileInputStream fileInputStream = null;
-        try {
-            fileInputStream = new FileInputStream("ScriptCodeExchange.txt");
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        if(fileInputStream != null){
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(fileInputStream));
-            Map<String,String> hashMap = null;
-            String str = null;
-            try {
-                while((str = bufferedReader.readLine()) != null){
-                    String[] strSp = str.split(" ");
-                    hashMap = new HashMap<String, String>();
-                    hashMap.put(strSp[0],strSp[1]);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            if(hashMap != null){
-                Iterator iterator = hashMap.entrySet().iterator();
-                while (iterator.hasNext()){
-                    Map.Entry entry = (Map.Entry)iterator.next();
-                    scriptCode.replace((String)entry.getKey(),(String)entry.getValue());
-                }
-            }
-        }
-        try {
-            fileInputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return scriptCode;
     }
     public String checkTagNameLength(String tagName){

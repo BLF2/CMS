@@ -1,8 +1,8 @@
 package net.blf2.controller.user;
 
-import net.blf2.model.entry.ArticleInfo;
-import net.blf2.model.entry.UserInfo;
-import net.blf2.model.entry.enumfile.UserRule;
+import net.blf2.model.entity.ArticleInfo;
+import net.blf2.model.entity.UserInfo;
+import net.blf2.model.entity.enumfile.UserRule;
 import net.blf2.service.IPrimaryUser;
 import net.blf2.util.CheckChars;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
-import java.io.*;
 import java.util.List;
 
 /**

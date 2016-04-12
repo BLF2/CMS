@@ -1,7 +1,7 @@
 package net.blf2.model.dao.Impl;
 
 import net.blf2.model.dao.IArticle;
-import net.blf2.model.entry.ArticleInfo;
+import net.blf2.model.entity.ArticleInfo;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;

@@ -4,12 +4,12 @@ import net.blf2.model.dao.IArticle;
 import net.blf2.model.dao.IArticleTag;
 import net.blf2.model.dao.ITag;
 import net.blf2.model.dao.IUser;
-import net.blf2.model.entry.ArticleInfo;
-import net.blf2.model.entry.ArticleTag;
-import net.blf2.model.entry.TagInfo;
-import net.blf2.model.entry.UserInfo;
-import net.blf2.model.entry.enumfile.ArticleStatus;
-import net.blf2.model.entry.enumfile.UserRule;
+import net.blf2.model.entity.ArticleInfo;
+import net.blf2.model.entity.ArticleTag;
+import net.blf2.model.entity.TagInfo;
+import net.blf2.model.entity.UserInfo;
+import net.blf2.model.entity.enumfile.ArticleStatus;
+import net.blf2.model.entity.enumfile.UserRule;
 import net.blf2.service.IPrimaryUser;
 import net.blf2.util.CheckChars;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -113,8 +113,8 @@ public class PrimaryUserImpl implements IPrimaryUser{
     @Override
     public ArticleInfo addArticleInfo(String articleTitle, Integer writerId, String articleText, String publishDateTime, ArticleStatus articleStatus) {//添加文章
         articleTitle = checkChars.fiterScriptCode(articleTitle);
-        articleText = checkChars.fiterScriptCode(articleText);
         ArticleInfo articleInfo = new ArticleInfo(articleTitle,writerId,articleText,publishDateTime,articleStatus);
+        articleInfo.setArticleId(-1);
         articleInfo = iArticle.insertArticleInfo(articleInfo);
         return articleInfo;
     }
@@ -122,7 +122,6 @@ public class PrimaryUserImpl implements IPrimaryUser{
     @Override
     public ArticleInfo updateArticleInfo(ArticleInfo currentAticleInfo,String articleTitle, Integer writerId, String articleText, String publishDateTime, ArticleStatus articleStatus) {//更新文章
         articleTitle = checkChars.fiterScriptCode(articleTitle);
-        articleText = checkChars.fiterScriptCode(articleText);
         ArticleInfo articleInfo = new ArticleInfo(currentAticleInfo.getArticleId(),articleTitle,writerId,articleText,publishDateTime,articleStatus);
         if(iArticle.updateArticleInfo(articleInfo))
             return articleInfo;

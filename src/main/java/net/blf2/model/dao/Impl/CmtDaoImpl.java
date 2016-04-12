@@ -1,7 +1,7 @@
 package net.blf2.model.dao.Impl;
 
 import net.blf2.model.dao.ICmt;
-import net.blf2.model.entry.CmtInfo;
+import net.blf2.model.entity.CmtInfo;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
