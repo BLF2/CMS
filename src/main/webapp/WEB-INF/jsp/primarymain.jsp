@@ -1,9 +1,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="net.blf2.model.entry.ArticleInfo" %>
+<%@ page import="net.blf2.model.entity.ArticleInfo" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.springframework.web.portlet.ModelAndView" %>
 <%@ page import="java.util.Iterator" %>
-<%@ page import="net.blf2.model.entry.UserInfo" %>
+<%@ page import="net.blf2.model.entity.UserInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: blf2
@@ -33,7 +33,7 @@
         <a href="/User/toLookPersonalInfo.action">修改个人信息</a>
       </li>
       <li>
-        <a href="#">添加个人文章</a>
+        <a href="/Article/toAddArticleInfo.action">添加个人文章</a>
       </li>
       <li>
         <a href="#">查看个人文章</a>
