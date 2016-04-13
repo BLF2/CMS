@@ -58,33 +58,52 @@
         <td>
           操作2
         </td>
-        <%
-          HttpSession httpSession = request.getSession();
-
-          List<ArticleInfo>alist = (List<ArticleInfo>) httpSession.getAttribute("ListOfArticleByWriterId");
-          if(alist == null){%>
-          无记录！
-          <%}else{
-          Iterator<ArticleInfo>iterator = alist.iterator();
-          while(iterator.hasNext()){
-            ArticleInfo articleInfo = iterator.next();%>
-        <tr>
-          <a href="/Article/look.action?articleId=<%=articleInfo.getArticleId()%>"><td><%=articleInfo.getArticleTitle()%></td></a>
-          <td><%=articleInfo.getPublishDateTime()%></td>
-        <%if(articleInfo.getArticleStatus().isPublished()){%>
-      <td>已发表</td>
-      <%}else if(articleInfo.getArticleStatus().isDrafts()){%>
-      <td>草稿</td>
-      <%}else{%>
-      <td>回收站</td>
-      <%}%>
-      <a href="/Article/edit.action?articleId=<%=articleInfo.getArticleId()%>"><td><button type="button" class="btn btn-primary">编辑</button></td></a>
-        <a href="/Article/delete.action?articleId=<%=articleInfo.getArticleId()%>"><td><button type="button" class="btn btn-primary">删除</button></td></a>
         </tr>
+
+          <%
+            HttpSession httpSession = request.getSession();
+
+            List<ArticleInfo>alist = (List<ArticleInfo>) httpSession.getAttribute("ListOfArticleByWriterId");
+            UserInfo userInfo = (UserInfo) request.getSession().getAttribute("loginInfo");
+            if(alist == null){%>
+            无记录！
+        <%}else if(userInfo == null){%>
+      不可操作！！!
+            <%}else{
+            Iterator<ArticleInfo>iterator = alist.iterator();
+            while(iterator.hasNext()){
+              ArticleInfo articleInfo = iterator.next();%>
+           <tr>
+          <td>
+            <a href="/Article/look.action?articleId=<%=articleInfo.getArticleId()%>"><%=articleInfo.getArticleTitle()%></a>
+          </td>
+          <td>
+            <%=articleInfo.getPublishDateTime()%>
+          </td>
+        <%if(articleInfo.getArticleStatus().isPublished()){%>
+      <td>
+        已发表
+      </td>
+      <%}else if(articleInfo.getArticleStatus().isDrafts()){%>
+      <td>
+        草稿
+      </td>
+      <%}else{%>
+      <td>
+        回收站
+      </td>
+      <%}%>
+      <td>
+        <a href="/Article/edit.action?articleId=<%=articleInfo.getArticleId()%>&userId=<%=userInfo.getUserId()%>"><button type="button" class="btn btn-primary">编辑</button></a>
+      </td>
+        <td>
+          <a href="/Article/delete.action?articleId=<%=articleInfo.getArticleId()%>&userId=<%=userInfo.getUserId()%>"><button type="button" class="btn btn-primary">删除</button></a>
+        </td>
+           </tr>
           <%}
           }
         %>
-      </tr>
+
     </table>
   </div>
 </div>
