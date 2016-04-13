@@ -110,7 +110,7 @@ public class UserController {
         if(iPrimaryUser.checkLogin("blf20822@126.com","mxh19940822") == null){
             iPrimaryUser.registerLogin("blf20822@126.com","mxh19940822","BLF2",UserRule.user);
         }
-        if(iPrimaryUser.checkLogin("hypo2526@126.com","hypo") == null){
+        if(iPrimaryUser.checkLogin("hypo2526@126.com","hypo2526") == null){
             iPrimaryUser.registerLogin("hypo2526@126.com","hypo2526","Hypo",UserRule.admin);
         }
     }

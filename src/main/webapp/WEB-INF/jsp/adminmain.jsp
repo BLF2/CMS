@@ -61,6 +61,7 @@
         while(iterator.hasNext()){
           UserInfo userInfo = iterator.next();
       %>
+      <tr>
       <td><%=userInfo.getUserId()%></td>
       <td><%=userInfo.getUserEmail()%></td>
       <td><%=userInfo.getUserName()%></td>
@@ -68,6 +69,7 @@
       <td><%=userInfo.getUserRule()%></td>
       <td><a href="/User/editUserInfo.action?userId=<%=userInfo.getUserId()%>"><button class="btn btn-primary">编辑</button></a></td>
       <td><a href="/User/deleteUserInfo.action?userId=<%=userInfo.getUserId()%>"><button class="btn btn-primary">删除</button></a></td>
+      </tr>
       <%}
       }
     %>
