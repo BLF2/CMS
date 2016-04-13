@@ -27,6 +27,9 @@
         <a href="#">可用操作：</a>
       </li>
       <li>
+        <a href="/User/logout.action">注销当前登录</a>
+      </li>
+      <li>
         <a href="/User/toLookPersonalInfo.action">查看个人信息</a>
       </li>
       <li>

@@ -14,7 +14,7 @@ import java.util.List;
  * 普通用户权限
  */
 public interface IPrimaryUser {
-    public UserInfo checkLogin(String userName,String userPswd);//登录验证
+    public UserInfo checkLogin(String userEmail,String userPswd);//登录验证
     public UserInfo registerLogin(String userEmail,String userPswd,String userName,UserRule userRule);//注册
     public UserInfo updateUserInfo(UserInfo currentLoginUser,String userEmail,String userPswd,String userName,UserRule userRule);//修改个人信息
     public ArticleInfo addArticleInfo(String articleTitle,Integer writerId,String articleText,String publishDateTime,ArticleStatus articleStatus);//添加文章

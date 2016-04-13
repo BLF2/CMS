@@ -41,8 +41,6 @@
     <p id="resultOfCheckPswd"></p>
     <label for="userName" >用户名：</label>
     <input type="text" id="userName" class="form-control" name="userName" placeholder="userName" maxlength="50" required />
-    <label for="accreditCode" >授权码：</label>
-    <input type="text" id="accreditCode" name="accreditCode" class="form-control"  placeholder="accreditCode" required />
     <br />
     <button class="btn btn-lg btn-primary btn-block form-signin" type="submit">注册</button>
   </form>

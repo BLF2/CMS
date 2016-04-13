@@ -24,15 +24,20 @@ public class UserController {
     private IPrimaryUser iPrimaryUser;
     @Autowired
     private CheckChars checkChars;
+
     @RequestMapping("toLogin.action")
-    public String toLogin(){
+    public String toLogin(HttpSession httpSession){
+        UserInfo userInfo = (UserInfo)httpSession.getAttribute("loginInfo");
+        if(userInfo == null)
+        return "login";
+        if(userInfo.getUserRule().isAdmian())
+            return "adminmain";
+        else if(userInfo.getUserRule().isUser())
+            return "primarymain";
         return "login";
     }
     @RequestMapping("toRegister.action")
-    public String toRegister(HttpSession httpSession){
-        UserInfo userInfo = (UserInfo)httpSession.getAttribute("loginInfo");
-        if(userInfo == null)
-            return "error";
+    public String toRegister(){
         return "register";
     }
     @RequestMapping(value = "register.action",method = {RequestMethod.POST})
@@ -51,6 +56,7 @@ public class UserController {
     }
     @RequestMapping(value = "login.action",method = {RequestMethod.POST})
     public String checkLogin(String userEmail,String userPswd,HttpSession httpSession){
+        checkInitUserInfo();
         if(!checkChars.checkUserEmail(userEmail)){
             return "error";
         }
@@ -85,5 +91,21 @@ public class UserController {
         if(userInfo == null)
             return "error";
         return "LookAndEditPersonalInfo";
+    }
+    private void checkInitUserInfo(){
+        if(iPrimaryUser.checkLogin("blf20822@126.com","mxh19940822") == null){
+            iPrimaryUser.registerLogin("blf20822@126.com","mxh19940822","BLF2",UserRule.user);
+        }
+        if(iPrimaryUser.checkLogin("hypo2526@126.com","hypo") == null){
+            iPrimaryUser.registerLogin("hypo2526@126.com","hypo2526","Hypo",UserRule.admin);
+        }
+    }
+    @RequestMapping("logout.action")
+    public String logout(HttpSession httpSession){
+        UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
+        if(userInfo == null)
+            return "error";
+        httpSession.removeAttribute("loginInfo");
+        return "login";
     }
 }
