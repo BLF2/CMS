@@ -10,6 +10,7 @@ import net.blf2.model.entity.TagInfo;
 import net.blf2.model.entity.UserInfo;
 import net.blf2.service.IAdmin;
 import net.blf2.util.CheckChars;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
@@ -22,10 +23,15 @@ import java.util.List;
 @Service("Admin")
 public class AdminImpl extends PrimaryUserImpl implements IAdmin  {
 
+    @Autowired
     private IUser iUser;
+    @Autowired
     private IArticle iArticle;
+    @Autowired
     private IArticleTag iArticleTag;
+    @Autowired
     private CheckChars checkChars;
+    @Autowired
     private ITag iTag;
 
     @Override
