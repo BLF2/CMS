@@ -10,6 +10,7 @@ import net.blf2.model.entity.TagInfo;
 import net.blf2.model.entity.UserInfo;
 import net.blf2.service.IAdmin;
 import net.blf2.util.CheckChars;
+import org.springframework.stereotype.Service;
 
 import java.util.Iterator;
 import java.util.List;
@@ -18,6 +19,7 @@ import java.util.List;
  * Created by blf2 on 16-4-3.
  * 管理员类的接口实现
  */
+@Service("Admin")
 public class AdminImpl extends PrimaryUserImpl implements IAdmin  {
 
     private IUser iUser;

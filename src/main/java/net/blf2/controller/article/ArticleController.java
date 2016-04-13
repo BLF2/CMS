@@ -3,10 +3,12 @@ package net.blf2.controller.article;
 import net.blf2.model.entity.ArticleInfo;
 import net.blf2.model.entity.UserInfo;
 import net.blf2.model.entity.enumfile.ArticleStatus;
+import net.blf2.service.IAdmin;
 import net.blf2.service.IPrimaryUser;
 import net.blf2.util.DateFormat;
 import org.apache.tools.ant.taskdefs.condition.Http;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -23,15 +25,22 @@ public class ArticleController {
     @Autowired
     private DateFormat dateFormat;
     @Autowired
+    @Qualifier("PrimaryUser")
     private IPrimaryUser iPrimaryUser;
+    @Autowired
+    @Qualifier("Admin")
+    private IAdmin iAdmin;
     @RequestMapping("toAddArticleInfo")
-    public String toAddArticleInfo(){
+    public String toAddArticleInfo(HttpSession httpSession){
+        UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
+        if(userInfo == null)
+            return "login";
         return "addArticleInfo";
     }
     @RequestMapping(value = "addArticleInfo.action",method = {RequestMethod.POST})
     public String addArticleInfo(String userId,String Submit,String articleInfoEditor,String articleTitle,HttpSession httpSession){
         UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
-        if(userInfo == null || !userInfo.getUserId().toString().equals(userId))
+        if(userInfo == null || (!userInfo.getUserRule().isAdmian() && !userInfo.getUserId().toString().equals(userId)))
             return "login";
         ArticleStatus articleStatus = null;
         if("publish".equals(Submit))
@@ -50,13 +59,16 @@ public class ArticleController {
     @RequestMapping(value = "edit.action")
     public String toEditArticleInfo(HttpSession httpSession,String articleId){
         ArticleInfo articleInfo = iPrimaryUser.lookArticleInfoByArticleId(Integer.parseInt(articleId));
+        UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
+        if(userInfo == null || (!userInfo.getUserRule().isAdmian() && !(userInfo.getUserId() == articleInfo.getWriterId())))
+            return "login";
         httpSession.setAttribute("editCurrentArticle",articleInfo);
         return "editArticleInfo";
     }
     @RequestMapping(value = "updateArticleInfo.action",method = {RequestMethod.POST})
     public String updateArticleInfo(String userId,String Submit,String articleInfoEditor,String articleTitle,HttpSession httpSession){
         UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
-        if(userInfo == null || !userInfo.getUserId().toString().equals(userId))
+        if(userInfo == null || (!userInfo.getUserRule().isAdmian() && !userInfo.getUserId().toString().equals(userId)))
             return "login";
         ArticleStatus articleStatus = null;
         if("publish".equals(Submit))
@@ -77,10 +89,8 @@ public class ArticleController {
     @RequestMapping("delete.action")
     public String deleteArticleInfo(String articleId,HttpSession httpSession,String userId){
         UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
-        if(userInfo == null || !userInfo.getUserId().toString().equals(userId)) {
-            System.out.println("loginId = "+userInfo.getUserId() + "-------writerId="+userId);
+        if(userInfo == null || (!userInfo.getUserRule().isAdmian() && !userInfo.getUserId().toString().equals(userId)))
             return "login";
-        }
         if(iPrimaryUser.deleteArticelInfoByArticleId(Integer.parseInt(articleId))){
             List<ArticleInfo>articleInfoList = iPrimaryUser.lookWriterArticleInfo(userInfo.getUserId());
             httpSession.setAttribute("ListOfArticleByWriterId", articleInfoList);
@@ -90,5 +100,14 @@ public class ArticleController {
             return "adminmain";
         }
         return "error";
+    }
+    @RequestMapping("lookArticleInfoAll.action")
+    public String lookArticleInfoAll(HttpSession httpSession){
+        UserInfo userInfo = (UserInfo)httpSession.getAttribute("loginInfo");
+        if(userInfo == null || !userInfo.getUserRule().isAdmian())
+            return "login";
+        List<ArticleInfo>articleInfoAllList = iAdmin.lookArticleInfoAll();
+        httpSession.setAttribute("articleInfoAllList",articleInfoAllList);
+        return "adminArticleAll";
     }
 }

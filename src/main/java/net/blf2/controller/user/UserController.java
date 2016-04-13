@@ -3,9 +3,11 @@ package net.blf2.controller.user;
 import net.blf2.model.entity.ArticleInfo;
 import net.blf2.model.entity.UserInfo;
 import net.blf2.model.entity.enumfile.UserRule;
+import net.blf2.service.IAdmin;
 import net.blf2.service.IPrimaryUser;
 import net.blf2.util.CheckChars;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,15 +23,19 @@ import java.util.List;
 @RequestMapping("/User/")
 public class UserController {
     @Autowired
+    @Qualifier("PrimaryUser")
     private IPrimaryUser iPrimaryUser;
     @Autowired
     private CheckChars checkChars;
+    @Autowired
+    @Qualifier("Admin")
+    private IAdmin iAdmin;
 
     @RequestMapping("toLogin.action")
     public String toLogin(HttpSession httpSession){
         UserInfo userInfo = (UserInfo)httpSession.getAttribute("loginInfo");
         if(userInfo == null)
-        return "login";
+            return "login";
         if(userInfo.getUserRule().isAdmian())
             return "adminmain";
         else if(userInfo.getUserRule().isUser())
@@ -37,7 +43,10 @@ public class UserController {
         return "login";
     }
     @RequestMapping("toRegister.action")
-    public String toRegister(){
+    public String toRegister(HttpSession httpSession){
+        UserInfo userInfo = (UserInfo)httpSession.getAttribute("loginInfo");
+        if(userInfo == null || !userInfo.getUserRule().isAdmian())
+            return "login";
         return "register";
     }
     @RequestMapping(value = "register.action",method = {RequestMethod.POST})
@@ -65,8 +74,11 @@ public class UserController {
             if(userInfo.getUserRule().isInactive())
                 return "error";
             httpSession.setAttribute("loginInfo",userInfo);
-            if(userInfo.getUserRule().isAdmian())
+            if(userInfo.getUserRule().isAdmian()) {
+                List<UserInfo> userInfoAllList = iAdmin.lookUserInfoAll();
+                httpSession.setAttribute("userInfoAllList",userInfoAllList);
                 return "adminmain";
+            }
             else if(userInfo.getUserRule().isUser()) {
                 List<ArticleInfo> alist = iPrimaryUser.lookWriterArticleInfo(userInfo.getUserId());
                 httpSession.setAttribute("ListOfArticleByWriterId",alist);
@@ -77,9 +89,11 @@ public class UserController {
     }
     @RequestMapping(value = "updatePersonalInfo.action",method = {RequestMethod.POST})
     public String updatePersonalInfo(String userPswd,String userName,String Submit,HttpSession httpSession){
+        UserInfo currentUserInfo = (UserInfo)httpSession.getAttribute("loginInfo");
+        if(currentUserInfo == null)
+            return "login";
         if("no".equals(Submit))
             return "primarymain";
-        UserInfo currentUserInfo = (UserInfo)httpSession.getAttribute("loginInfo");
         if((currentUserInfo = iPrimaryUser.updateUserInfo(currentUserInfo,currentUserInfo.getUserEmail(),userPswd,userName,UserRule.user)) == null)
             return  "error";
         httpSession.setAttribute("loginInfo",currentUserInfo);
