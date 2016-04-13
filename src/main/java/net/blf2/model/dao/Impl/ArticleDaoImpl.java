@@ -32,9 +32,10 @@ public class ArticleDaoImpl implements IArticle{
         try {
             this.sessionFactory.getCurrentSession().save(articleInfo);
         }catch (HibernateException e) {
-            return articleInfo;
+            e.printStackTrace();
+            return null;
         }
-        return null;
+        return articleInfo;
     }
 
     @Override

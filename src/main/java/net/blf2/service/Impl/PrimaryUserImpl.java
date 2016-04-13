@@ -95,8 +95,6 @@ public class PrimaryUserImpl implements IPrimaryUser{
         if(checkChars.checkRegisterInfo(userInfo)){
 
             reUserInfo = iUser.insertUserInfo(userInfo);
-//            if(reUserInfo != null)
-//            System.out.println("增加通过！");
         }
         return reUserInfo;
     }
@@ -114,7 +112,6 @@ public class PrimaryUserImpl implements IPrimaryUser{
     public ArticleInfo addArticleInfo(String articleTitle, Integer writerId, String articleText, String publishDateTime, ArticleStatus articleStatus) {//添加文章
         articleTitle = checkChars.fiterScriptCode(articleTitle);
         ArticleInfo articleInfo = new ArticleInfo(articleTitle,writerId,articleText,publishDateTime,articleStatus);
-        articleInfo.setArticleId(-1);
         articleInfo = iArticle.insertArticleInfo(articleInfo);
         return articleInfo;
     }
