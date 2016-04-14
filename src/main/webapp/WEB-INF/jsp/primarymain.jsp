@@ -1,7 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="net.blf2.model.entity.ArticleInfo" %>
 <%@ page import="java.util.List" %>
-<%@ page import="org.springframework.web.portlet.ModelAndView" %>
 <%@ page import="java.util.Iterator" %>
 <%@ page import="net.blf2.model.entity.UserInfo" %>
 <%--
@@ -100,7 +99,7 @@
         <a href="/Article/edit.action?articleId=<%=articleInfo.getArticleId()%>&userId=<%=userInfo.getUserId()%>"><button type="button" class="btn btn-primary">编辑</button></a>
       </td>
         <td>
-          <a href="/Article/delete.action?articleId=<%=articleInfo.getArticleId()%>&userId=<%=userInfo.getUserId()%>"><button type="button" class="btn btn-primary">删除</button></a>
+          <a href="/Article/delete.action?articleId=<%=articleInfo.getArticleId()%>&userId=<%=userInfo.getUserId()%>"><button type="button" class="btn btn-primary" onclick="return checkDelete()">删除</button></a>
         </td>
            </tr>
           <%}
@@ -110,5 +109,10 @@
     </table>
   </div>
 </div>
+<script type="text/javascript">
+  function checkDelete(){
+    return confirm("确定删除？");
+  }
+</script>
 </body>
 </html>

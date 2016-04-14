@@ -157,4 +157,17 @@ public class UserController {
         httpSession.setAttribute("userInfoAllList",userInfoAllList);
         return "adminmain";
     }
+    @RequestMapping("adminDeleteUserInfo.action")
+    public String adminDeleteUserInfo(HttpSession httpSession,String userId){
+        UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
+        if(userInfo == null || !userInfo.getUserRule().isAdmian())
+            return "error";
+        Integer userIdi = Integer.parseInt(userId);
+        if(iAdmin.deleteUserInfoByUserId(userIdi)){
+            List<UserInfo> userInfoAllList = iAdmin.lookUserInfoAll();
+            httpSession.setAttribute("userInfoAllList",userInfoAllList);
+            return "adminmain";
+        }
+        return "error";
+    }
 }
