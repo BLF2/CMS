@@ -56,6 +56,8 @@ public class UserController {
             userRule = UserRule.user;
             UserInfo rUserInfo = new UserInfo(userEmail,userPswd,userName,userRule);
             if(iPrimaryUser.registerLogin(userEmail,userPswd,userName,userRule) != null) {
+                List<UserInfo>userInfoAllList = iAdmin.lookUserInfoAll();
+                httpSession.setAttribute("userInfoAllList",userInfoAllList);
                 return "adminmain";
             }
         }
@@ -119,5 +121,40 @@ public class UserController {
             return "error";
         httpSession.removeAttribute("loginInfo");
         return "login";
+    }
+    @RequestMapping("adminEditUserInfo.action")
+    public String adminEditUserInfo(HttpSession httpSession,String userId){
+        UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
+        if(userInfo == null || !userInfo.getUserRule().isAdmian())
+            return "error";
+        UserInfo adminEditUserInfo = iPrimaryUser.lookUserInfoByUserId(Integer.parseInt(userId));
+        httpSession.setAttribute("adminEditUserInfo", adminEditUserInfo);
+        return "adminEditUserInfo";
+    }
+    @RequestMapping(value = "adminUpdateUserInfo.action",method = {RequestMethod.POST})
+    public String adminUpdateUserInfo(String userEmail,String userPswd,String userName,HttpSession httpSession,String rule){
+        UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
+        if(userInfo == null || !userInfo.getUserRule().isAdmian())
+            return "error";
+        UserInfo adminEditUserInfo = (UserInfo) httpSession.getAttribute("adminEditUserInfo");
+        if(adminEditUserInfo == null)
+            return "error";
+        UserRule userRule = null;
+        if("0".equals(rule))
+            userRule = UserRule.user;
+        else
+            userRule = UserRule.inactive;
+//        System.out.println(adminEditUserInfo.toString()+" "+userEmail+" "+userPswd+" "+userName+" "+rule);
+//        if(iAdmin == null){
+//            System.out.println("-------------->iAdmin == null");
+//        }
+        if((adminEditUserInfo = iPrimaryUser.updateUserInfo(adminEditUserInfo,userEmail,userPswd,userName,userRule)) == null)
+            return "error";
+        if(adminEditUserInfo.getUserId().equals(userInfo.getUserId())){
+            httpSession.setAttribute("loginInfo",adminEditUserInfo);
+        }
+        List<UserInfo> userInfoAllList = iAdmin.lookUserInfoAll();
+        httpSession.setAttribute("userInfoAllList",userInfoAllList);
+        return "adminmain";
     }
 }
