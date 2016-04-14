@@ -1,3 +1,4 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%--
   Created by IntelliJ IDEA.
   User: blf2
@@ -31,10 +32,10 @@
 <body>
 <div class="container">
   <form class="form-signin" action="/User/register.action" method="post">
-    <h4 class="form-signin-heading">请注册：</h4>
-    <label for="userEmail">注册邮箱：</label>
+    <h4 class="form-signin-heading">请填写信息：</h4>
+    <label for="userEmail">用户邮箱：</label>
     <input type="email" id="userEmail" name="userEmail" class="form-control" placeholder="Email address" maxlength="100" required autofocus>
-    <label for="userPswd" >注册密码：</label>
+    <label for="userPswd" >用户密码：</label>
     <input type="password" id="userPswd" name="userPswd" class="form-control" placeholder="Password" maxlength="50" required>
     <label for="rePswd" >确认密码：</label>
     <input type="password" id="rePswd" class="form-control" name="rePswd" placeholder="Password" maxlength="50" onfocus="removeDialog()" onblur="checkPassword()" required />

@@ -30,9 +30,8 @@ public class UserController {
     @Autowired
     @Qualifier("Admin")
     private IAdmin iAdmin;
-
     @RequestMapping("toLogin.action")
-    public String toLogin(HttpSession httpSession){
+    public String toLogin(HttpSession httpSession){//去登陆界面
         UserInfo userInfo = (UserInfo)httpSession.getAttribute("loginInfo");
         if(userInfo == null)
             return "login";
@@ -43,28 +42,27 @@ public class UserController {
         return "login";
     }
     @RequestMapping("toRegister.action")
-    public String toRegister(HttpSession httpSession){
+    public String toRegister(HttpSession httpSession){//去注册界面
         UserInfo userInfo = (UserInfo)httpSession.getAttribute("loginInfo");
         if(userInfo == null || !userInfo.getUserRule().isAdmian())
             return "login";
         return "register";
     }
     @RequestMapping(value = "register.action",method = {RequestMethod.POST})
-    public String register(String userEmail,String userPswd,String userName,int rule,HttpSession httpSession){
+    public String register(String userEmail,String userPswd,String userName,HttpSession httpSession){//注册信息
         UserInfo userInfo = (UserInfo)httpSession.getAttribute("loginInfo");
         if(userInfo != null && userInfo.getUserRule().isAdmian()){
             UserRule userRule = null;
-            if(rule == 1)
-                userRule = UserRule.user;
-            else if(rule == 0)
-                userRule = UserRule.inactive;
+            userRule = UserRule.user;
             UserInfo rUserInfo = new UserInfo(userEmail,userPswd,userName,userRule);
-            return "adminmain";
+            if(iPrimaryUser.registerLogin(userEmail,userPswd,userName,userRule) != null) {
+                return "adminmain";
+            }
         }
         return "error";
     }
     @RequestMapping(value = "login.action",method = {RequestMethod.POST})
-    public String checkLogin(String userEmail,String userPswd,HttpSession httpSession){
+    public String checkLogin(String userEmail,String userPswd,HttpSession httpSession){//登陆
         checkInitUserInfo();
         if(!checkChars.checkUserEmail(userEmail)){
             return "error";
@@ -88,7 +86,7 @@ public class UserController {
         return "login";
     }
     @RequestMapping(value = "updatePersonalInfo.action",method = {RequestMethod.POST})
-    public String updatePersonalInfo(String userPswd,String userName,String Submit,HttpSession httpSession){
+    public String updatePersonalInfo(String userPswd,String userName,String Submit,HttpSession httpSession){//更新用户信息
         UserInfo currentUserInfo = (UserInfo)httpSession.getAttribute("loginInfo");
         if(currentUserInfo == null)
             return "login";
@@ -100,7 +98,7 @@ public class UserController {
         return "primarymain";
     }
     @RequestMapping(value = "toLookPersonalInfo.action")
-    public String toLookPersonalInfo(HttpSession httpSession) {
+    public String toLookPersonalInfo(HttpSession httpSession) {//查看个人信息
         UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
         if(userInfo == null)
             return "error";
@@ -115,7 +113,7 @@ public class UserController {
         }
     }
     @RequestMapping("logout.action")
-    public String logout(HttpSession httpSession){
+    public String logout(HttpSession httpSession){//注销登陆
         UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
         if(userInfo == null)
             return "error";

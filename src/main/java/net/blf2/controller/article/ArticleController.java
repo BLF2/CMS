@@ -31,13 +31,13 @@ public class ArticleController {
     @Qualifier("Admin")
     private IAdmin iAdmin;
     @RequestMapping("toAddArticleInfo")
-    public String toAddArticleInfo(HttpSession httpSession){
+    public String toAddArticleInfo(HttpSession httpSession){//去添加文章信息界面
         UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
         if(userInfo == null)
             return "login";
         return "addArticleInfo";
     }
-    @RequestMapping(value = "addArticleInfo.action",method = {RequestMethod.POST})
+    @RequestMapping(value = "addArticleInfo.action",method = {RequestMethod.POST})//添加文章信息
     public String addArticleInfo(String userId,String Submit,String articleInfoEditor,String articleTitle,HttpSession httpSession){
         UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
         if(userInfo == null || (!userInfo.getUserRule().isAdmian() && !userInfo.getUserId().toString().equals(userId)))
@@ -57,7 +57,7 @@ public class ArticleController {
         return "adminmain";
     }
     @RequestMapping(value = "edit.action")
-    public String toEditArticleInfo(HttpSession httpSession,String articleId){
+    public String toEditArticleInfo(HttpSession httpSession,String articleId){//去编辑文章界面
         ArticleInfo articleInfo = iPrimaryUser.lookArticleInfoByArticleId(Integer.parseInt(articleId));
         UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
         if(userInfo == null || (!userInfo.getUserRule().isAdmian() && !(userInfo.getUserId() == articleInfo.getWriterId())))
@@ -65,7 +65,7 @@ public class ArticleController {
         httpSession.setAttribute("editCurrentArticle",articleInfo);
         return "editArticleInfo";
     }
-    @RequestMapping(value = "updateArticleInfo.action",method = {RequestMethod.POST})
+    @RequestMapping(value = "updateArticleInfo.action",method = {RequestMethod.POST})//更新文章信息
     public String updateArticleInfo(String userId,String Submit,String articleInfoEditor,String articleTitle,HttpSession httpSession){
         UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
         if(userInfo == null || (!userInfo.getUserRule().isAdmian() && !userInfo.getUserId().toString().equals(userId)))
@@ -87,7 +87,7 @@ public class ArticleController {
         return "adminmain";
     }
     @RequestMapping("delete.action")
-    public String deleteArticleInfo(String articleId,HttpSession httpSession,String userId){
+    public String deleteArticleInfo(String articleId,HttpSession httpSession,String userId){//删除文章信息
         UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
         if(userInfo == null || (!userInfo.getUserRule().isAdmian() && !userInfo.getUserId().toString().equals(userId)))
             return "login";
@@ -102,7 +102,7 @@ public class ArticleController {
         return "error";
     }
     @RequestMapping("lookArticleInfoAll.action")
-    public String lookArticleInfoAll(HttpSession httpSession){
+    public String lookArticleInfoAll(HttpSession httpSession){//查看所有文章
         UserInfo userInfo = (UserInfo)httpSession.getAttribute("loginInfo");
         if(userInfo == null || !userInfo.getUserRule().isAdmian())
             return "login";
