@@ -26,4 +26,5 @@ public interface IPrimaryUser {
     public ArticleInfo lookArticleInfoByArticleId(Integer articleId);//根据文章id查看文章
     public List<TagInfo> lookTagInfoByArticleId(Integer articleId);//根据文章id获取分类
     public List<TagInfo> lookTagInfoAll();//查看所有分类信息
+    public UserInfo lookUserInfoByUserId(Integer userId);//根据用户id查询用户信息
 }

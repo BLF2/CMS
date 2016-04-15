@@ -21,7 +21,7 @@ import java.util.List;
  * 管理员类的接口实现
  */
 @Service("Admin")
-public class AdminImpl extends PrimaryUserImpl implements IAdmin  {
+public class AdminImpl implements IAdmin  {
 
     @Autowired
     private IUser iUser;
@@ -34,54 +34,47 @@ public class AdminImpl extends PrimaryUserImpl implements IAdmin  {
     @Autowired
     private ITag iTag;
 
-    @Override
+    public AdminImpl() {
+    }
+
     public IUser getiUser() {
         return iUser;
     }
 
-    @Override
     public void setiUser(IUser iUser) {
-        this.iUser = super.getiUser();
+        this.iUser = iUser;
     }
 
-    @Override
     public IArticle getiArticle() {
         return iArticle;
     }
 
-    @Override
     public void setiArticle(IArticle iArticle) {
-        this.iArticle = super.getiArticle();
+        this.iArticle = iArticle;
     }
 
-    @Override
     public IArticleTag getiArticleTag() {
         return iArticleTag;
     }
 
-    @Override
     public void setiArticleTag(IArticleTag iArticleTag) {
-        this.iArticleTag = super.getiArticleTag();
+        this.iArticleTag = iArticleTag;
     }
 
-    @Override
     public CheckChars getCheckChars() {
         return checkChars;
     }
 
-    @Override
     public void setCheckChars(CheckChars checkChars) {
-        this.checkChars = super.getCheckChars();
+        this.checkChars = checkChars;
     }
 
-    @Override
     public ITag getiTag() {
         return iTag;
     }
 
-    @Override
     public void setiTag(ITag iTag) {
-        this.iTag = super.getiTag();
+        this.iTag = iTag;
     }
 
     @Override
@@ -95,22 +88,26 @@ public class AdminImpl extends PrimaryUserImpl implements IAdmin  {
         if(userInfo == null)
             return Boolean.FALSE;
         List<ArticleInfo>articles = iArticle.queryArticleInfoByWriterId(userInfo.getUserId());//查询出这个用户的所有文章
-        Iterator<ArticleInfo>iteratora = articles.iterator();
-        try {
-            while (iteratora.hasNext()) {
-                ArticleInfo articleInfo = iteratora.next();
-                List<ArticleTag> aTags = iArticleTag.queryArticleTagByArticleId(articleInfo.getArticleId());//查询文章的分类
-                Iterator<ArticleTag> iteratorac = aTags.iterator();
-                while (iteratorac.hasNext()) {
-                    iArticleTag.deleteArticleTag(iteratorac.next());//删除文章分类信息
+        if(articles != null) {
+            Iterator<ArticleInfo> iteratora = articles.iterator();
+            try {
+                while (iteratora.hasNext()) {
+                    ArticleInfo articleInfo = iteratora.next();
+                    List<ArticleTag> aTags = iArticleTag.queryArticleTagByArticleId(articleInfo.getArticleId());//查询文章的分类
+                    if (aTags != null) {
+                        Iterator<ArticleTag> iteratorac = aTags.iterator();
+                        while (iteratorac.hasNext()) {
+                            iArticleTag.deleteArticleTag(iteratorac.next());//删除文章分类信息
+                        }
+                    }
+                    iArticle.deleteArticleInfo(articleInfo);//删除文章
                 }
-                iArticle.deleteArticleInfo(articleInfo);//删除文章
+            } catch (Exception e) {
+                return Boolean.FALSE;
             }
-            iUser.deleteUserInfo(userInfo);//删除用户信息
-        }catch (Exception e){
-            return Boolean.FALSE;
         }
-        return Boolean.TRUE;
+
+        return iUser.deleteUserInfo(userInfo);//删除用户信息
     }
 
     @Override

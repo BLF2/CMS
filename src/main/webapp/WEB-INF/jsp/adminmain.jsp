@@ -67,8 +67,8 @@
       <td><%=userInfo.getUserName()%></td>
       <td><%=userInfo.getUserPswd()%></td>
       <td><%=userInfo.getUserRule()%></td>
-      <td><a href="/User/editUserInfo.action?userId=<%=userInfo.getUserId()%>"><button class="btn btn-primary">编辑</button></a></td>
-      <td><a href="/User/deleteUserInfo.action?userId=<%=userInfo.getUserId()%>"><button class="btn btn-primary">删除</button></a></td>
+      <td><a href="/User/adminEditUserInfo.action?userId=<%=userInfo.getUserId()%>"><button class="btn btn-primary">编辑</button></a></td>
+      <td><a href="/User/adminDeleteUserInfo.action?userId=<%=userInfo.getUserId()%>"><button class="btn btn-primary" onclick="return checkDelete()">删除</button></a></td>
       </tr>
       <%}
       }
@@ -77,6 +77,10 @@
   </div>
 </div>
 
-
+<script type="text/javascript">
+  function checkDelete(){
+    return confirm("确定删除？");
+  }
+</script>
 </body>
 </html>

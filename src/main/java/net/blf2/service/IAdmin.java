@@ -10,7 +10,7 @@ import java.util.List;
  * Created by blf2 on 16-4-3.
  * 管理员权限设置
  */
-public interface IAdmin extends IPrimaryUser{
+public interface IAdmin {
     public List<UserInfo> lookUserInfoAll();
     public Boolean deleteUserInfoByUserId(Integer userId);
     public List<ArticleInfo> lookArticleInfoAll();
