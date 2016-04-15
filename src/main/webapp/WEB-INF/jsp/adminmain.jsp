@@ -37,7 +37,7 @@
         <a href="/Article/lookArticleInfoAll.action">查看文章信息</a>
       </li>
       <li>
-        <a href="/Article/addArticleInfo.action">增加文章信息</a>
+        <a href="/Article/toAddArticleInfo.action">增加文章信息</a>
       </li>
     </ul>
   </div>
@@ -51,6 +51,7 @@
         <td>用户权限</td>
         <td>操作1</td>
         <td>操作2</td>
+        <td>查看</td>
       </tr>
     <%
       List<UserInfo>userInfoAllList = (List<UserInfo>) request.getSession().getAttribute("userInfoAllList");
@@ -69,6 +70,7 @@
       <td><%=userInfo.getUserRule()%></td>
       <td><a href="/User/adminEditUserInfo.action?userId=<%=userInfo.getUserId()%>"><button class="btn btn-primary">编辑</button></a></td>
       <td><a href="/User/adminDeleteUserInfo.action?userId=<%=userInfo.getUserId()%>"><button class="btn btn-primary" onclick="return checkDelete()">删除</button></a></td>
+        <td><a href="/Article/lookUsersArticleAll.action?userId=<%=userInfo.getUserId()%>"><button class="btn btn-primary">所有文章</button></a></td>
       </tr>
       <%}
       }
