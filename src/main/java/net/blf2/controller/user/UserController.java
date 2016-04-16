@@ -170,4 +170,13 @@ public class UserController {
         }
         return "error";
     }
+    @RequestMapping("lookUserInfoAll.action")
+    public String lookUserInfoAll(HttpSession httpSession){
+        UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
+        if(userInfo == null || !userInfo.getUserRule().isAdmian())
+            return "error";
+        List<UserInfo> userInfoAllList = iAdmin.lookUserInfoAll();
+        httpSession.setAttribute("userInfoAllList",userInfoAllList);
+        return "adminmain";
+    }
 }

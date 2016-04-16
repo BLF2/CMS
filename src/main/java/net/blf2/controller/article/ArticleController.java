@@ -30,7 +30,7 @@ public class ArticleController {
     @Autowired
     @Qualifier("Admin")
     private IAdmin iAdmin;
-    @RequestMapping("toAddArticleInfo")
+    @RequestMapping("toAddArticleInfo.action")
     public String toAddArticleInfo(HttpSession httpSession){//去添加文章信息界面
         UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
         if(userInfo == null)

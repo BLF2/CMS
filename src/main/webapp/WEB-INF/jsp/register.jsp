@@ -32,10 +32,10 @@
 <body>
 <div class="container">
   <form class="form-signin" action="/User/register.action" method="post">
-    <h4 class="form-signin-heading">请填写信息：</h4>
-    <label for="userEmail">用户邮箱：</label>
+    <h4 class="form-signin-heading">请填写：</h4>
+    <label for="userEmail">邮箱：</label>
     <input type="email" id="userEmail" name="userEmail" class="form-control" placeholder="Email address" maxlength="100" required autofocus>
-    <label for="userPswd" >用户密码：</label>
+    <label for="userPswd" >密码：</label>
     <input type="password" id="userPswd" name="userPswd" class="form-control" placeholder="Password" maxlength="50" required>
     <label for="rePswd" >确认密码：</label>
     <input type="password" id="rePswd" class="form-control" name="rePswd" placeholder="Password" maxlength="50" onfocus="removeDialog()" onblur="checkPassword()" required />
@@ -43,7 +43,7 @@
     <label for="userName" >用户名：</label>
     <input type="text" id="userName" class="form-control" name="userName" placeholder="userName" maxlength="50" required />
     <br />
-    <button class="btn btn-lg btn-primary btn-block form-signin" type="submit">注册</button>
+    <button class="btn btn-lg btn-primary btn-block form-signin" type="submit">添加</button>
   </form>
 </div>
 </body>
