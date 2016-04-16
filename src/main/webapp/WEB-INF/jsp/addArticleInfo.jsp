@@ -30,7 +30,7 @@
         <a href="#">可用操作：</a>
       </li>
       <li>
-        <a href="/index.jsp">放弃编辑并返回</a>
+        <a href="/User/toUserMainPage.action">放弃编辑并返回</a>
       </li>
     </ul>
   </div>

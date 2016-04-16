@@ -179,4 +179,15 @@ public class UserController {
         httpSession.setAttribute("userInfoAllList",userInfoAllList);
         return "adminmain";
     }
+    @RequestMapping("toUserMainPage.action")
+    public String toUserMainPage(HttpSession httpSession){
+        UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
+        if(userInfo == null)
+            return "login";
+        if(userInfo.getUserRule().isAdmian())
+            return "adminmain";
+        if(userInfo.getUserRule().isUser())
+            return "primaymain";
+        return "error";
+    }
 }
