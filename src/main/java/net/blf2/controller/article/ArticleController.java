@@ -98,10 +98,20 @@ public class ArticleController {
         if(iPrimaryUser.deleteArticelInfoByArticleId(Integer.parseInt(articleId))){
             List<ArticleInfo>articleInfoList = iPrimaryUser.lookWriterArticleInfo(userInfo.getUserId());
             httpSession.setAttribute("ListOfArticleByWriterId", articleInfoList);
-            if(userInfo.getUserRule().isUser()){
-                return "primarymain";
+            if(userInfo.getUserRule().isAdmian()){
+                List<ArticleInfo>articleInfoAllList = iAdmin.lookArticleInfoAll();
+                Map<Integer,String> map = new HashMap<Integer,String>();
+                List<UserInfo>ulist = iAdmin.lookUserInfoAll();
+                Iterator<UserInfo>iterator = ulist.iterator();
+                while(iterator.hasNext()) {
+                    UserInfo userInfol = iterator.next();
+                    map.put(userInfol.getUserId(),userInfo.getUserName());
+                }
+                httpSession.setAttribute("articleInfoAllList",articleInfoAllList);
+                httpSession.setAttribute("UserIdToName",map);
+                return "adminArticleAll";
             }
-            return "adminmain";
+            return "primarymain";
         }
         return "error";
     }
