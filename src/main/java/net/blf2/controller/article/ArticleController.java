@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by blf2 on 16-4-12.
@@ -47,6 +50,7 @@ public class ArticleController {
             articleStatus = ArticleStatus.published;
         else if("drafts".equals(Submit))
             articleStatus = ArticleStatus.drafts;
+        System.out.println("----------->"+articleTitle);
         if(iPrimaryUser.addArticleInfo(articleTitle,Integer.parseInt(userId),articleInfoEditor,dateFormat.getCurrentDateTime(),articleStatus) == null)
             return "error";
         List<ArticleInfo>articleInfoList = iPrimaryUser.lookWriterArticleInfo(userInfo.getUserId());
@@ -107,7 +111,15 @@ public class ArticleController {
         if(userInfo == null || !userInfo.getUserRule().isAdmian())
             return "login";
         List<ArticleInfo>articleInfoAllList = iAdmin.lookArticleInfoAll();
+        Map<Integer,String> map = new HashMap<Integer,String>();
+        List<UserInfo>ulist = iAdmin.lookUserInfoAll();
+        Iterator<UserInfo>iterator = ulist.iterator();
+        while(iterator.hasNext()) {
+            UserInfo userInfol = iterator.next();
+            map.put(userInfol.getUserId(),userInfo.getUserName());
+        }
         httpSession.setAttribute("articleInfoAllList",articleInfoAllList);
+        httpSession.setAttribute("UserIdToName",map);
         return "adminArticleAll";
     }
 }
