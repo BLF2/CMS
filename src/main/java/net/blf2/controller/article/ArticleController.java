@@ -126,10 +126,24 @@ public class ArticleController {
         Iterator<UserInfo>iterator = ulist.iterator();
         while(iterator.hasNext()) {
             UserInfo userInfol = iterator.next();
-            map.put(userInfol.getUserId(),userInfo.getUserName());
+            map.put(userInfol.getUserId(),userInfol.getUserName());
         }
         httpSession.setAttribute("articleInfoAllList",articleInfoAllList);
         httpSession.setAttribute("UserIdToName",map);
         return "adminArticleAll";
+    }
+    @RequestMapping("toIndex.action")
+    public String indexLookArticleInfoAll(HttpSession httpSession){
+        List<ArticleInfo>articleInfoAllList = iAdmin.lookArticleInfoAll();
+        Map<Integer,String> map = new HashMap<Integer,String>();
+        List<UserInfo>ulist = iAdmin.lookUserInfoAll();
+        Iterator<UserInfo>iterator = ulist.iterator();
+        while(iterator.hasNext()) {
+            UserInfo userInfol = iterator.next();
+            map.put(userInfol.getUserId(),userInfol.getUserName());
+        }
+        httpSession.setAttribute("articleInfoAllList",articleInfoAllList);
+        httpSession.setAttribute("UserIdToName",map);
+        return "IndexPage";
     }
 }
