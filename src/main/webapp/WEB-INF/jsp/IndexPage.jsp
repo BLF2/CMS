@@ -70,12 +70,22 @@
         <p>本站是BLF2和他的朋友的网站。在这里，有技术博客，有生活琐事。如果您也有自己的博客，请在留言板里给我留言，我们可以互相添加友链。</p>
       </div>
       <div class="row">
-        <%Iterator<ArticleInfo>iter = articleInfoAllList.iterator();
-          while(iter.hasNext()){%>
         <div class="col-md-4">
-
+        <%Iterator<ArticleInfo>iter = articleInfoAllList.iterator();
+          String[] cl = {"btn-primary","btn-success","btn-info","btn-warning"};
+          int i = 0;
+          while(iter.hasNext()){
+            ArticleInfo articleInfo = iter.next();
+            String text = articleInfo.getArticleText();
+        %>
+          <span><a href="#"><h2><%=articleInfo.getArticleTitle()%></h2></a></span>
+          <span><%=map.get(articleInfo.getWriterId())%>&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          <span><%=articleInfo.getPublishDateTime()%></span><br />
+          <h3><%=text.substring(0,text.length() < 50 ? text.length() : 50)%></h3>
+        <%
+          }
+        %>
         </div>
-        <%}%>
       </div>
     </div><!--/.col-xs-12.col-sm-9-->
     <%}%>

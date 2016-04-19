@@ -12,7 +12,7 @@
 </head>
 <script type="text/javascript">
   function toIndex(){
-    window.location.href="/toIndex.action";
+    window.location.href="/Article/toIndex.action";
   }
 </script>
 <body onload="toIndex()">
