@@ -160,4 +160,19 @@ public class ArticleController {
         httpSession.setAttribute("writerInfo",userInfo);
         return "frontLookArticle";
     }
+    @RequestMapping("lookUsersArticleAll.action")
+    public String lookUsersArticleAll(HttpSession httpSession,String userId){
+        UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
+        if(userInfo == null || !userInfo.getUserRule().isAdmian())
+            return "login";
+        Integer id = null;
+        try{
+            id = Integer.parseInt(userId);
+        }catch (Exception e){
+            return "error";
+        }
+        List<ArticleInfo>articleInfoListByWriterId = iPrimaryUser.lookWriterArticleInfo(id);
+        httpSession.setAttribute("articleInfoListByWriterId",articleInfoListByWriterId);
+        return "adminLookArticleByWriterId";
+    }
 }
