@@ -24,6 +24,7 @@
   if(adminEditUserInfo == null){%>
     <h3>不可编辑！！！</h3>
   <%}else{
+    request.getSession().removeAttribute("adminEditUserInfo");
 %>
 <div class="row">
   <div class="col-md-4"></div>

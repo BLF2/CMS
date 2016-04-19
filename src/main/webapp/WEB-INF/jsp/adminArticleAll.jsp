@@ -70,9 +70,11 @@
 
         List<ArticleInfo> alist = (List<ArticleInfo>) httpSession.getAttribute("articleInfoAllList");
         Map<Integer,String> map = (Map<Integer, String>) httpSession.getAttribute("UserIdToName");
-        if(alist == null){%>
+        if(alist == null || map == null){%>
       无记录！
       <%}else{
+        httpSession.removeAttribute("articleInfoAllList");
+        httpSession.removeAttribute("UserIdToName");
         Iterator<ArticleInfo> iterator = alist.iterator();
         while(iterator.hasNext()){
           ArticleInfo articleInfo = iterator.next();%>

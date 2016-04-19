@@ -26,6 +26,7 @@
   if(articleInfo == null){%>
     <h3>不可编辑！！！</h3>
   <%}else{
+    request.getSession().removeAttribute("editCurrentArticle");
 %>
 
 <div class="row">

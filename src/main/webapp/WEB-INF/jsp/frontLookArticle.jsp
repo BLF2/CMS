@@ -29,6 +29,11 @@
 <%
   ArticleInfo articleInfo = (ArticleInfo) request.getSession().getAttribute("frontArticleInfo");
   UserInfo userInfo = (UserInfo)request.getSession().getAttribute("writerInfo");
+  if(articleInfo == null || userInfo == null){%>
+<h3>无法查看，请联系管理员。邮箱blf20822@126.com，谢谢合作！！！</h3>
+  <%}else{
+    request.getSession().removeAttribute("frontArticleInfo");
+    request.getSession().removeAttribute("writerInfo");
 %>
 
 <body>
@@ -92,6 +97,7 @@
   </footer>
 
 </div><!--/.container-->
+<%}%>
 
 <script src="../../js/jquery.min.js"></script>
 <script src="../../js/bootstrap.min.js"></script>

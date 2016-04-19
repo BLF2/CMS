@@ -58,6 +58,7 @@
       if(userInfoAllList == null){%>
         <h3>无记录！！！</h3>
       <%}else {
+        request.getSession().removeAttribute("userInfoAllList");
         Iterator <UserInfo>iterator = userInfoAllList.iterator();
         while(iterator.hasNext()){
           UserInfo userInfo = iterator.next();

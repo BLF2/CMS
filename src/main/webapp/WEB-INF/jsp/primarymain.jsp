@@ -72,6 +72,7 @@
         <%}else if(userInfo == null){%>
       不可操作！！!
             <%}else{
+              httpSession.removeAttribute("ListOfArticleByWriterId");
             Iterator<ArticleInfo>iterator = alist.iterator();
             while(iterator.hasNext()){
               ArticleInfo articleInfo = iterator.next();%>

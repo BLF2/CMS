@@ -32,7 +32,8 @@
   if(articleInfoAllList == null || map == null){%>
     <h3>由于数据不全，无法正常显示，请发邮件到blf20822@126.com,谢谢合作！！！</h3>
   <%}else{
-
+    request.getSession().removeAttribute("articleInfoAllList");
+    request.getSession().removeAttribute("UserIdToName");
 %>
 
 <body>
