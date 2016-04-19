@@ -1,11 +1,11 @@
-<%@ page import="net.blf2.model.entity.UserInfo" %>
 <%@ page import="net.blf2.model.entity.ArticleInfo" %>
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.Map" %>
-<%@ page import="java.util.Iterator" %>
+<%@ page import="net.blf2.model.entity.UserInfo" %>
 <%--
   Created by IntelliJ IDEA.
   User: blf2
+  Date: 16-4-19
+  Time: 上午11:17
+  To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
@@ -27,12 +27,8 @@
   <script src="../../js/ie-emulation-modes-warning.js"></script>
 </head>
 <%
-  List<ArticleInfo>articleInfoAllList = (List<ArticleInfo>) request.getSession().getAttribute("articleInfoAllList");
-  Map<Integer,String> map = (Map<Integer, String>) request.getSession().getAttribute("UserIdToName");
-  if(articleInfoAllList == null || map == null){%>
-    <h3>由于数据不全，无法正常显示，请发邮件到blf20822@126.com,谢谢合作！！！</h3>
-  <%}else{
-
+  ArticleInfo articleInfo = (ArticleInfo) request.getSession().getAttribute("frontArticleInfo");
+  UserInfo userInfo = (UserInfo)request.getSession().getAttribute("writerInfo");
 %>
 
 <body>
@@ -71,24 +67,12 @@
       </div>
       <div class="row">
         <div class="col-md-4">
-        <%Iterator<ArticleInfo>iter = articleInfoAllList.iterator();
-          String[] cl = {"btn-primary","btn-success","btn-info","btn-warning"};
-          int i = 0;
-          while(iter.hasNext()){
-            ArticleInfo articleInfo = iter.next();
-            String text = articleInfo.getArticleText();
-        %>
-          <span><a href="/Article/frontLookArticle.action?articleId=<%=articleInfo.getArticleId()%>"><h2><%=articleInfo.getArticleTitle()%></h2></a></span>
-          <span><%=map.get(articleInfo.getWriterId())%>&nbsp;&nbsp;&nbsp;&nbsp;</span>
-          <span><%=articleInfo.getPublishDateTime()%></span><br />
-          <h3><%=text.substring(0,text.length() < 50 ? text.length() : 50)%></h3>
-        <%
-          }
-        %>
+         <h2><%=articleInfo.getArticleTitle()%></h2><br />
+          <span><h4><%=userInfo.getUserName()%></h4><h4><%=articleInfo.getPublishDateTime()%></h4></span>
+          <h3><%=articleInfo.getArticleText()%></h3>
         </div>
       </div>
     </div><!--/.col-xs-12.col-sm-9-->
-    <%}%>
     <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
       <div class="list-group">
         <a href="#" class="list-group-item active">文章</a>

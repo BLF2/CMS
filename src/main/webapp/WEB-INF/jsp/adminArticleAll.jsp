@@ -78,7 +78,7 @@
           ArticleInfo articleInfo = iterator.next();%>
       <tr>
         <td>
-          <a href="/Article/look.action?articleId=<%=articleInfo.getArticleId()%>"><%=articleInfo.getArticleTitle()%></a>
+          <a href="/Article/frontLookArticle.action?articleId=<%=articleInfo.getArticleId()%>"><%=articleInfo.getArticleTitle()%></a>
         </td>
         <td>
           <%=map.get(articleInfo.getWriterId())%>

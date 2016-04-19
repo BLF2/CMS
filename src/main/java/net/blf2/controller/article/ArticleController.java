@@ -146,4 +146,18 @@ public class ArticleController {
         httpSession.setAttribute("UserIdToName",map);
         return "IndexPage";
     }
+    @RequestMapping("frontLookArticle.action")
+    public String frontLookArticle(String articleId,HttpSession httpSession){
+        Integer id = null;
+        try{
+            id = Integer.parseInt(articleId);
+        }catch (Exception e){
+            return "error";
+        }
+        ArticleInfo articleInfo = iPrimaryUser.lookArticleInfoByArticleId(id);
+        UserInfo userInfo = iPrimaryUser.lookUserInfoByUserId(articleInfo.getWriterId());
+        httpSession.setAttribute("frontArticleInfo",articleInfo);
+        httpSession.setAttribute("writerInfo",userInfo);
+        return "frontLookArticle";
+    }
 }
