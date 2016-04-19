@@ -11,6 +11,6 @@ RUN mvn package
 RUN rm -r ./apache-tomcat-8.0.33/webapps/*
 RUN mv ./target/CMS.war ./apache-tomcat-8.0.33/webapps/ROOT.war
 
-CMD ['/bin/bash', '/javatest/apache-tomcat-8.0.33/bin/startup.sh']
+CMD ['/bin/sh', '/javatest/apache-tomcat-8.0.33/bin/startup.sh']
 EXPOSE 8080
 
