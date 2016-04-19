@@ -2,10 +2,6 @@ FROM maven:3.3.9-jdk-8
 
 MAINTAINER BLF2 blf20822@126.com
 
-ENV CATALINA_HOME /usr/local/tomcat
-ENV PATH $CATALINA_HOME/bin:$PATH
-RUN mkdir -p "$CATALINA_HOME"
-
 RUN mkdir /javatest
 WORKDIR /javatest
 COPY . /javatest
