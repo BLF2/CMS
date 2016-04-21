@@ -84,6 +84,11 @@ public class UserController {
                 httpSession.setAttribute("ListOfArticleByWriterId",alist);
                 return "primarymain";
             }
+            else{
+                httpSession.setAttribute("loginStatus","NoEmail");
+            }
+        }else{
+            httpSession.setAttribute("loginStatus","NoMactch");
         }
         return "login";
     }
@@ -187,7 +192,7 @@ public class UserController {
         if(userInfo.getUserRule().isAdmian())
             return "adminmain";
         if(userInfo.getUserRule().isUser())
-            return "primaymain";
+            return "primarymain";
         return "error";
     }
 }

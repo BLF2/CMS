@@ -64,7 +64,7 @@ public class ArticleInfo {
     public void setWriterId(Integer writerId) {
         this.writerId = writerId;
     }
-    @Column(name = "articleText")
+    @Column(name = "articleText",length = 9999999)
     public String getArticleText() {
         return articleText;
     }

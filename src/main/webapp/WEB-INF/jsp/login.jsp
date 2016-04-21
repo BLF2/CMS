@@ -11,6 +11,19 @@
   <jsp:include page="top.html"/>
   <link href="../../css/signin.css" rel="stylesheet" />
     <title>Login</title>
+  <script type="text/javascript">
+  <%
+    String status = (String) request.getSession().getAttribute("loginStatus");
+    if(status != null){
+   request.getSession().removeAttribute("loginStatus");
+      if("NoEmail".equals(status)){%>
+        alert("登录邮箱不存在！");
+      <%}else if("NoMactch".equals(status)){%>
+        alert("登录邮箱和密码不匹配！");
+     <% }
+    }
+  %>
+  </script>
 </head>
 <body>
 <div class="container">

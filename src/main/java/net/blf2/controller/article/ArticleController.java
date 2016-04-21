@@ -154,7 +154,11 @@ public class ArticleController {
         }catch (Exception e){
             return "error";
         }
+        if(id < 0)
+            return "error";
         ArticleInfo articleInfo = iPrimaryUser.lookArticleInfoByArticleId(id);
+        if(articleInfo == null)
+            return "error";
         UserInfo userInfo = iPrimaryUser.lookUserInfoByUserId(articleInfo.getWriterId());
         httpSession.setAttribute("frontArticleInfo",articleInfo);
         httpSession.setAttribute("writerInfo",userInfo);
