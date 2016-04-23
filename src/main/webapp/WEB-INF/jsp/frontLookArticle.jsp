@@ -71,7 +71,7 @@
         <p>本站是BLF2和他的朋友的网站。在这里，有技术博客，有生活琐事。如果您也有自己的博客，请在留言板里给我留言，我们可以互相添加友链。</p>
       </div>
       <div class="row">
-        <div class="col-md-4">
+        <div>
          <h2><%=articleInfo.getArticleTitle()%></h2><br />
           <span><h4><%=userInfo.getUserName()%></h4><h4><%=articleInfo.getPublishDateTime()%></h4></span>
           <h3><%=articleInfo.getArticleText()%></h3>
@@ -93,7 +93,7 @@
   <hr>
 
   <footer>
-    <p>&copy; @By BLF2</p>
+    <p>&copy; Copyright@BLF2's Blog</p>
   </footer>
 
 </div><!--/.container-->
