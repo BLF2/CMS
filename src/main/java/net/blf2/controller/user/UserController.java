@@ -35,10 +35,16 @@ public class UserController {
         UserInfo userInfo = (UserInfo)httpSession.getAttribute("loginInfo");
         if(userInfo == null)
             return "login";
-        if(userInfo.getUserRule().isAdmian())
+        if(userInfo.getUserRule().isAdmian()) {
+            List<UserInfo>userInfoAllList = iAdmin.lookUserInfoAll();
+            httpSession.setAttribute("userInfoAllList",userInfoAllList);
             return "adminmain";
-        else if(userInfo.getUserRule().isUser())
+        }
+        else if(userInfo.getUserRule().isUser()) {
+            List<ArticleInfo> alist = iPrimaryUser.lookWriterArticleInfo(userInfo.getUserId());
+            httpSession.setAttribute("ListOfArticleByWriterId",alist);
             return "primarymain";
+        }
         return "login";
     }
     @RequestMapping("toRegister.action")

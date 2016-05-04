@@ -119,6 +119,18 @@ public class PrimaryUserImpl implements IPrimaryUser{
     @Override
     public ArticleInfo updateArticleInfo(ArticleInfo currentAticleInfo,String articleTitle, Integer writerId, String articleText, String publishDateTime, ArticleStatus articleStatus) {//更新文章
         articleTitle = checkChars.fiterScriptCode(articleTitle);
+        if(currentAticleInfo == null)
+            System.out.println("currentAticleInfo = null");
+        else if(articleTitle == null)
+            System.out.println("articleTitle = null");
+        else if(writerId == null)
+            System.out.println("writerId = null");
+        else if(articleText == null)
+            System.out.println("articleText = null");
+        else if(publishDateTime == null)
+            System.out.println("publishDateTime = null");
+        else
+            System.out.println("articleStatus = null");
         ArticleInfo articleInfo = new ArticleInfo(currentAticleInfo.getArticleId(),articleTitle,writerId,articleText,publishDateTime,articleStatus);
         if(iArticle.updateArticleInfo(articleInfo))
             return articleInfo;

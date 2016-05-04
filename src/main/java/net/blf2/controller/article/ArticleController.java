@@ -80,6 +80,9 @@ public class ArticleController {
         else if("drafts".equals(Submit))
             articleStatus = ArticleStatus.drafts;
         ArticleInfo currentArticleInfo = (ArticleInfo) httpSession.getAttribute("editCurrentArticle");
+        if(currentArticleInfo == null)
+            return "error";
+        httpSession.removeAttribute("editCurrentArticle");
         if(iPrimaryUser.updateArticleInfo(currentArticleInfo,articleTitle, Integer.parseInt(userId), articleInfoEditor, dateFormat.getCurrentDateTime(), articleStatus) == null)
             return "error";
         httpSession.removeAttribute("editCurrentArticle");
