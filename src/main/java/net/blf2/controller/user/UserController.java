@@ -195,8 +195,11 @@ public class UserController {
         UserInfo userInfo = (UserInfo) httpSession.getAttribute("loginInfo");
         if(userInfo == null)
             return "login";
-        if(userInfo.getUserRule().isAdmian())
+        if(userInfo.getUserRule().isAdmian()) {
+            List<UserInfo> userInfoAllList = iAdmin.lookUserInfoAll();
+            httpSession.setAttribute("userInfoAllList",userInfoAllList);
             return "adminmain";
+        }
         if(userInfo.getUserRule().isUser())
             return "primarymain";
         return "error";

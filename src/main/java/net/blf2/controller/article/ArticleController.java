@@ -54,10 +54,14 @@ public class ArticleController {
         if(iPrimaryUser.addArticleInfo(articleTitle,Integer.parseInt(userId),articleInfoEditor,dateFormat.getCurrentDateTime(),articleStatus) == null)
             return "error";
         List<ArticleInfo>articleInfoList = iPrimaryUser.lookWriterArticleInfo(userInfo.getUserId());
-        httpSession.setAttribute("ListOfArticleByWriterId",articleInfoList);
+        httpSession.setAttribute("ListOfArticleByWriterId", articleInfoList);
         if(userInfo.getUserRule().isUser()){
+            List<ArticleInfo> alist = iPrimaryUser.lookWriterArticleInfo(userInfo.getUserId());
+            httpSession.setAttribute("ListOfArticleByWriterId",alist);
             return "primarymain";
         }
+        List<UserInfo>userInfoAllList = iAdmin.lookUserInfoAll();
+        httpSession.setAttribute("userInfoAllList",userInfoAllList);
         return "adminmain";
     }
     @RequestMapping(value = "edit.action")
@@ -89,8 +93,12 @@ public class ArticleController {
         List<ArticleInfo>articleInfoList = iPrimaryUser.lookWriterArticleInfo(userInfo.getUserId());
         httpSession.setAttribute("ListOfArticleByWriterId", articleInfoList);
         if(userInfo.getUserRule().isUser()){
+            List<ArticleInfo> alist = iPrimaryUser.lookWriterArticleInfo(userInfo.getUserId());
+            httpSession.setAttribute("ListOfArticleByWriterId",alist);
             return "primarymain";
         }
+        List<UserInfo>userInfoAllList = iAdmin.lookUserInfoAll();
+        httpSession.setAttribute("userInfoAllList",userInfoAllList);
         return "adminmain";
     }
     @RequestMapping("delete.action")
@@ -114,6 +122,8 @@ public class ArticleController {
                 httpSession.setAttribute("UserIdToName",map);
                 return "adminArticleAll";
             }
+            List<ArticleInfo> alist = iPrimaryUser.lookWriterArticleInfo(userInfo.getUserId());
+            httpSession.setAttribute("ListOfArticleByWriterId",alist);
             return "primarymain";
         }
         return "error";
